@@ -14,4 +14,13 @@ router.post(
   authController.postSignUp
 );
 
+router.post(
+  '/login',
+  [
+    body('username').trim().notEmpty().escape(),
+    body('password').trim().notEmpty().escape(),
+  ],
+  authController.postLogIn
+);
+
 module.exports = router;

@@ -1,6 +1,7 @@
 const User = require('../models/user');
 const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 exports.postSignUp = async (req, res) => {
   const result = validationResult(req);
@@ -27,13 +28,11 @@ exports.postSignUp = async (req, res) => {
   const { username, password, confirmPassword, firstName, lastName } = req.body;
 
   if (await User.findOne({ username: username })) {
-    console.log(await User.findOne({ username: username }));
     return res
       .status(400)
       .json({ msg: 'A user with this username already exists.' });
   }
   if (password !== confirmPassword) {
-    console.log(await User.findOne({ username: username }));
     return res
       .status(400)
       .json({ msg: `Password and confirm password don't match.` });
@@ -53,5 +52,46 @@ exports.postSignUp = async (req, res) => {
   try {
   } catch (err) {
     console.log('Error when trying to sing up: ', err);
+  }
+};
+
+exports.postLogIn = async (req, res) => {
+  try {
+    const result = validationResult(req);
+    if (!result.isEmpty()) {
+      return res
+        .status(400)
+        .json({ step: 1, msg: 'Username and password are required.' });
+    }
+
+    const { username, password } = req.body;
+
+    const user = await User.findOne({ username: username });
+    if (!user) {
+      return res
+        .status(400)
+        .json({ msg: `A user with this username doesn't exists.` });
+    }
+
+    const match = await bcrypt.compare(password, user.password);
+    if (match) {
+      const opts = {
+        expiresIn: '7d',
+      };
+      const token = jwt.sign(
+        { username, id: user._id },
+        process.env.JWT_SECRET,
+        opts
+      );
+      return res.status(200).json({ msg: 'Auth passed', token: token });
+    } else {
+      return res.status(401).json({
+        msg: `Sorry, your password was incorrect. Please double-check your password.`,
+      });
+    }
+
+    return res.status(401).json({ msg: 'Auth failed' });
+  } catch (err) {
+    console.log('Error when trying to log in: ', err);
   }
 };
