@@ -1,2 +1,4 @@
 node_modules
 populatedb.js
+requests.rest
+.env
