@@ -46,8 +46,16 @@ router.post(
 router.post(
   '/login',
   [
-    body('username').trim().notEmpty().escape(),
-    body('password').trim().notEmpty().escape(),
+    body('username')
+      .trim()
+      .notEmpty()
+      .withMessage('Username is required.')
+      .escape(),
+    body('password')
+      .trim()
+      .notEmpty()
+      .withMessage('Password is required.')
+      .escape(),
   ],
   authController.postLogIn
 );

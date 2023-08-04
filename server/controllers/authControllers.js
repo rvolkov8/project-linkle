@@ -75,9 +75,7 @@ exports.postLogIn = async (req, res) => {
   try {
     const result = validationResult(req);
     if (!result.isEmpty()) {
-      return res
-        .status(400)
-        .json({ step: 1, msg: 'Username and password are required.' });
+      return res.status(400).json({ msg: result.array()[0].msg });
     }
 
     const { username, password } = req.body;
