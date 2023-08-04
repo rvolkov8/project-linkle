@@ -8,10 +8,37 @@ router.post(
   '/signup',
   upload.single('profilePicture'),
   [
-    body('username').trim().notEmpty().escape(),
-    body('password').trim().notEmpty().escape(),
-    body('firstName').trim().notEmpty().escape(),
-    body('lastName').trim().notEmpty().escape(),
+    body('username')
+      .trim()
+      .notEmpty()
+      .withMessage('Username is required.')
+      .isLength({ min: 5, max: 20 })
+      .withMessage('Username must be between 5 and 20 characters.')
+      .escape(),
+    body('password')
+      .trim()
+      .notEmpty()
+      .withMessage('Password is required.')
+      .isLength({ min: 8 })
+      .withMessage('Password must be at least 8 characters long.')
+      .escape(),
+    body('confirmPassword')
+      .trim()
+      .notEmpty()
+      .withMessage('Confirm password is required.')
+      .escape(),
+    body('firstName')
+      .trim()
+      .notEmpty()
+      .withMessage('First name is required.')
+      .escape(),
+    body('lastName')
+      .trim()
+      .notEmpty()
+      .withMessage('Last name is required.')
+      .escape(),
+    body('currentCity').optional().escape(),
+    body('hometown').optional().escape(),
   ],
   authController.postSignUp
 );

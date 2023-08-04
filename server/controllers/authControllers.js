@@ -4,63 +4,69 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 exports.postSignUp = async (req, res) => {
-  const result = validationResult(req);
-  if (!result.isEmpty()) {
-    const errStepOne = result.array().some((err) => {
-      return (
-        err.path === 'username' ||
-        err.path === 'password' ||
-        err.path === 'confirmPassword'
-      );
-    });
-
-    if (errStepOne) {
-      return res
-        .status(400)
-        .json({ step: 1, msg: 'Username and password are required.' });
-    } else {
-      return res
-        .status(400)
-        .json({ step: 2, msg: 'First and last name is required.' });
-    }
-  }
-
-  const {
-    username,
-    password,
-    confirmPassword,
-    profilePicture,
-    firstName,
-    lastName,
-  } = req.body;
-
-  if (await User.findOne({ username: username })) {
-    return res
-      .status(400)
-      .json({ msg: 'A user with this username already exists.' });
-  }
-  if (password !== confirmPassword) {
-    return res
-      .status(400)
-      .json({ msg: `Password and confirm password don't match.` });
-  }
-
-  const hashedPassword = await bcrypt.hash(password, 10);
-
-  const user = new User({
-    username: username,
-    password: hashedPassword,
-    firstName: firstName,
-    lastName: lastName,
-  });
-  if (profilePicture) {
-    user.profilePicture = profilePicture;
-  }
-  await user.save();
-  res.sendStatus(201);
-
   try {
+    const result = validationResult(req);
+    if (!result.isEmpty()) {
+      const errStepOne = result.array().some((err) => {
+        return (
+          err.path === 'username' ||
+          err.path === 'password' ||
+          err.path === 'confirmPassword'
+        );
+      });
+
+      if (errStepOne) {
+        return res.status(400).json({ step: 1, msg: result.array()[0].msg });
+      } else {
+        return res.status(400).json({ step: 2, msg: result.array()[0].msg });
+      }
+    }
+
+    const {
+      username,
+      password,
+      confirmPassword,
+      profilePicture,
+      firstName,
+      lastName,
+      currentCity,
+      hometown,
+    } = req.body;
+
+    if (await User.findOne({ username: username })) {
+      return res
+        .status(400)
+        .json({ step: 1, msg: 'A user with this username already exists.' });
+    }
+    if (password !== confirmPassword) {
+      return res
+        .status(400)
+        .json({ step: 1, msg: `Password and confirm password don't match.` });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const user = new User({
+      username: username,
+      password: hashedPassword,
+      firstName: firstName,
+      lastName: lastName,
+    });
+    if (profilePicture) {
+      user.profilePicture = profilePicture;
+    }
+    if (currentCity) {
+      user.currentCity = currentCity;
+    }
+    if (hometown) {
+      user.hometown = hometown;
+    }
+    await user.save();
+    res.sendStatus(201);
   } catch (err) {
+    res
+      .status(500)
+      .json({ step: 1, msg: 'Internal sever error. Please, try again later.' });
     console.log('Error when trying to sing up: ', err);
   }
 };
