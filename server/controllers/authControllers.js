@@ -25,7 +25,14 @@ exports.postSignUp = async (req, res) => {
     }
   }
 
-  const { username, password, confirmPassword, firstName, lastName } = req.body;
+  const {
+    username,
+    password,
+    confirmPassword,
+    profilePicture,
+    firstName,
+    lastName,
+  } = req.body;
 
   if (await User.findOne({ username: username })) {
     return res
@@ -46,6 +53,9 @@ exports.postSignUp = async (req, res) => {
     firstName: firstName,
     lastName: lastName,
   });
+  if (profilePicture) {
+    user.profilePicture = profilePicture;
+  }
   await user.save();
   res.sendStatus(201);
 
