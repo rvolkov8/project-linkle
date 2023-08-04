@@ -105,9 +105,10 @@ exports.postLogIn = async (req, res) => {
         msg: `Sorry, your password was incorrect. Please double-check your password.`,
       });
     }
-
-    return res.status(401).json({ msg: 'Auth failed' });
   } catch (err) {
+    res
+      .status(500)
+      .json({ msg: 'Internal sever error. Please, try again later.' });
     console.log('Error when trying to log in: ', err);
   }
 };
