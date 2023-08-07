@@ -5,11 +5,30 @@
   padding: 0;
   box-sizing: border-box;
   color: var(--black);
+  font-family: 'Roboto', sans-serif;
+  position: relative;
 }
 
 :root {
   font-weight: 400;
   font-size: 16px;
+
+  --main-bg: #f2f8fe;
+  --dark-bg: #e8f1fd;
+  --shadow: 0px 4px 15px rgba(216, 226, 253, 0.8);
+  --hover-shadow: #b6c2e0;
+  --icon: #94a3c0;
+  --blue: #458fce;
+  --text: #697a8f;
+  --green: #6cd479;
+  --light-green: #f6fff7;
+  --red: #da5c54;
+  --light-red: #fff6f5;
+  --placeholder: #cccccc;
+  --message-bg: #efefef;
+  --gray: #e4e6ea;
+  --black: #000000;
+  --white: #ffffff;
 
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -18,15 +37,26 @@
 }
 
 body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#root {
   display: grid;
-  grid-template-rows: 90px 1fr;
-  height: 100%;
+  grid-template-rows: 60px 1fr;
+  min-height: 100vh;
   width: 100vw;
-  background-color: var(--white);
+}
+
+main {
+  background-color: var(--main-bg);
+  display: grid;
+  grid-template-columns: 305px 1fr 305px;
 }
 
 *::placeholder {
-  color: var(--gray);
+  color: var(--placeholder);
 }
 
 h1,
@@ -43,8 +73,8 @@ p {
 
 a {
   text-decoration: none;
-  color: #646cff;
+  color: var(--blue);
 }
 a:hover {
-  color: #535bf2;
+  text-decoration: underline;
 }

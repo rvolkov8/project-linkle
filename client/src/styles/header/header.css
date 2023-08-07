@@ -1,0 +1,18 @@
+header {
+  background-color: var(--white);
+  box-shadow: var(--shadow);
+  z-index: 1;
+}
+
+.no-user-header {
+  display: grid;
+  place-items: center;
+  grid-row: 1 / 2;
+}
+
+.logo {
+  font-family: 'Righteous', cursive;
+  color: var(--blue);
+  font-size: 2rem;
+  cursor: default;
+}

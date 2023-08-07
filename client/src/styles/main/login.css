@@ -1,0 +1,148 @@
+.log-in {
+  grid-column: 2 / 3;
+  align-self: center;
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  border-radius: 25px;
+  background-color: var(--white);
+  box-shadow: var(--shadow);
+}
+
+.log-in > h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-align: center;
+  margin: 0 50px 10px 50px;
+  cursor: default;
+}
+
+.log-in > h2 {
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--text);
+  text-align: center;
+  margin-bottom: 20px;
+  cursor: default;
+}
+
+.log-in > h3 {
+  align-self: center;
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: var(--red);
+  text-align: center;
+  margin-bottom: 20px;
+  max-width: 300px;
+  cursor: default;
+}
+
+.log-in > form {
+  display: flex;
+  flex-direction: column;
+}
+
+.log-in .field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.log-in input {
+  height: 40px;
+  width: 100%;
+  border-radius: 12px;
+  border: 0.5px solid var(--icon);
+  padding-left: 50px;
+  font-size: 0.9rem;
+}
+
+.log-in input:focus {
+  outline: none;
+  border: 1px solid var(--black);
+}
+
+.log-in svg {
+  position: absolute;
+  height: 20px;
+  width: auto;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 20px;
+  fill: var(--placeholder);
+  z-index: 1;
+}
+
+.show-password-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 20px;
+  color: var(--text);
+  background-color: transparent;
+  text-align: center;
+  font-weight: 300;
+  font-size: 0.8rem;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.show-password-button:hover {
+  color: var(--black);
+}
+
+.log-in > form button[type='submit'],
+.guest-log-in-button {
+  height: 40px;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.log-in > form button[type='submit'] {
+  margin-top: 10px;
+}
+
+.log-in > form button[type='submit'].disabled {
+  border: 1px solid var(--icon);
+  background-color: var(--white);
+  color: var(--icon);
+  cursor: default;
+}
+
+.log-in > form button[type='submit'].enabled {
+  border: 1px solid var(--blue);
+  background-color: var(--blue);
+  color: var(--white);
+}
+
+.guest-log-in-button {
+  border: 1px solid var(--blue);
+  background-color: var(--white);
+  color: var(--blue);
+  margin-bottom: 15px;
+}
+
+.guest-log-in-button:hover {
+  border: 1px solid var(--blue);
+  background-color: var(--blue);
+  color: var(--white);
+}
+
+.log-in > p {
+  text-align: center;
+  color: var(--text);
+  font-weight: 300;
+  font-size: 0.8rem;
+  cursor: default;
+}
+
+.log-in > p > a {
+  font-weight: 700;
+}
