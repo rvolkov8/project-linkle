@@ -83,7 +83,7 @@ exports.postLogIn = async (req, res) => {
     const user = await User.findOne({ username: username });
     if (!user) {
       return res
-        .status(400)
+        .status(401)
         .json({ msg: `A user with this username doesn't exists.` });
     }
 
