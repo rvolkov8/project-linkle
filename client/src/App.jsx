@@ -19,10 +19,13 @@ const App = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      if (!res.ok && window.location.pathname !== '/login') {
+      if (
+        !res.ok &&
+        window.location.pathname !== '/login' &&
+        window.location.pathname !== '/signup'
+      ) {
         return navigate('/login');
       }
-      return;
     } catch (err) {
       console.error('Error fetching data:', err);
     }
@@ -30,7 +33,11 @@ const App = () => {
 
   // Authentication logic using useEffect and token state. Redirects to login page if token is missing or invalid.
   useEffect(() => {
-    if (!token && window.location.pathname !== '/login') {
+    if (
+      !token &&
+      window.location.pathname !== '/login' &&
+      window.location.pathname !== '/signup'
+    ) {
       return navigate('/login');
     }
 

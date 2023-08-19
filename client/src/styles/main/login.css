@@ -120,6 +120,12 @@
   border: 1px solid var(--blue);
   background-color: var(--blue);
   color: var(--white);
+  transition: all 0.2s;
+}
+
+.log-in > form button[type='submit'].enabled:hover {
+  border: 1px solid var(--blue-pressed);
+  background-color: var(--blue-pressed);
 }
 
 .guest-log-in-button {

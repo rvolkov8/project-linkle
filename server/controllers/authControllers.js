@@ -18,7 +18,7 @@ exports.postSignUp = async (req, res) => {
       if (errStepOne) {
         return res.status(400).json({ step: 1, msg: result.array()[0].msg });
       } else {
-        return res.status(400).json({ step: 2, msg: result.array()[0].msg });
+        return res.status(400).json({ step: 3, msg: result.array()[0].msg });
       }
     }
 
@@ -26,12 +26,12 @@ exports.postSignUp = async (req, res) => {
       username,
       password,
       confirmPassword,
-      profilePicture,
       firstName,
       lastName,
       currentCity,
       hometown,
     } = req.body;
+    console.log(req.file);
 
     if (await User.findOne({ username: username })) {
       return res
@@ -52,8 +52,8 @@ exports.postSignUp = async (req, res) => {
       firstName: firstName,
       lastName: lastName,
     });
-    if (profilePicture) {
-      user.profilePicture = profilePicture;
+    if (req.file) {
+      user.avatarFileName = req.file.filename;
     }
     if (currentCity) {
       user.currentCity = currentCity;

@@ -19,6 +19,7 @@
   --hover-shadow: #b6c2e0;
   --icon: #94a3c0;
   --blue: #458fce;
+  --blue-pressed: rgb(80, 160, 225);
   --text: #697a8f;
   --green: #6cd479;
   --light-green: #f6fff7;
@@ -61,7 +62,8 @@ main {
 
 h1,
 h2,
-h3 {
+h3,
+h4 {
   font-size: 1rem;
   display: inline-block;
   font-weight: 400;

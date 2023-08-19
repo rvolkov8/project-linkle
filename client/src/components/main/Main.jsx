@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import LogIn from './LogIn';
+import SignUp from './SignUp';
 
 const Main = ({ token, setToken }) => {
   return (
@@ -10,6 +11,7 @@ const Main = ({ token, setToken }) => {
           path="/login"
           element={<LogIn token={token} setToken={setToken} />}
         />
+        <Route path="/signup" element={<SignUp />} />
       </Routes>
     </main>
   );
