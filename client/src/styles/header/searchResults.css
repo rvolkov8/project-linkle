@@ -1,0 +1,88 @@
+.search-results {
+  position: absolute;
+  background-color: red;
+  left: 0;
+  right: 0;
+  top: 0;
+  padding: 50px 0 15px 0;
+  border-radius: 12px;
+  background-color: var(--main-bg);
+  box-shadow: var(--inner-shadow), var(--shadow);
+  border: none;
+}
+
+.search-results > p {
+  padding: 5px 20px;
+  font-weight: 300;
+  color: var(--text);
+}
+
+.search-results > .dots {
+  width: 40px;
+  height: 19.2px;
+  background:
+    radial-gradient(circle closest-side, var(--icon) 90%, #0000) 0% 50%,
+    radial-gradient(circle closest-side, var(--icon) 90%, #0000) 50% 50%,
+    radial-gradient(circle closest-side, var(--icon) 90%, #0000) 100% 50%;
+  background-size: calc(100% / 3) 9.6px;
+  background-repeat: no-repeat;
+  animation: dots-7ar3yq 0.8s infinite linear;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+@keyframes dots-7ar3yq {
+  20% {
+    background-position:
+      0% 0%,
+      50% 50%,
+      100% 50%;
+  }
+
+  40% {
+    background-position:
+      0% 100%,
+      50% 0%,
+      100% 50%;
+  }
+
+  60% {
+    background-position:
+      0% 50%,
+      50% 100%,
+      100% 0%;
+  }
+
+  80% {
+    background-position:
+      0% 50%,
+      50% 50%,
+      100% 100%;
+  }
+}
+
+.result {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 5px 25px;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.result:hover {
+  background-color: var(--dark-bg);
+}
+
+.result img {
+  width: 45px;
+  height: 45px;
+  border-radius: 12px;
+}
+
+.result h3 {
+  font-weight: 700;
+  cursor: inherit;
+}

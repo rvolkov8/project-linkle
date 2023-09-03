@@ -1,0 +1,68 @@
+.comment {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 15px;
+}
+
+.comment:not(:last-of-type) {
+  margin-bottom: 15px;
+}
+
+.comment img {
+  height: 40px;
+  width: 40px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 12px;
+  align-self: flex-start;
+}
+
+.comment .author-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 3px;
+}
+
+.comment .author-info div {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.comment h3 {
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.comment svg {
+  width: 15px;
+  height: 15px;
+}
+
+.comment button {
+  font-size: inherit;
+  font-weight: 300;
+  color: var(--text);
+  font-size: 0.9rem;
+  background-color: transparent;
+  border: none;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.comment button:hover {
+  color: var(--blue);
+}
+
+.comment h4 {
+  font-weight: 300;
+  color: var(--text);
+  font-size: 0.7rem;
+  justify-self: end;
+}
+
+.comment p {
+  color: var(--text);
+  font-size: 0.9rem;
+}

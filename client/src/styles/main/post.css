@@ -1,0 +1,270 @@
+.post {
+  display: flex;
+  flex-direction: column;
+  width: 580px;
+  margin-bottom: 30px;
+  background-color: var(--white);
+  border-radius: 30px;
+  padding: 25px;
+  box-shadow: var(--shadow);
+  animation: fadein 1.5s;
+}
+
+.post .user {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.post .user img {
+  height: 45px;
+  width: 45px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 12px;
+}
+
+.post .user div {
+  display: flex;
+  gap: 2px;
+  flex-direction: column;
+}
+
+.post .user h2 {
+  font-weight: 700;
+}
+
+.post .user h3 {
+  font-weight: 300;
+  color: var(--text);
+  font-size: 0.85rem;
+}
+
+.post > p {
+  color: var(--text);
+  margin-bottom: 15px;
+}
+
+.post > img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 20px;
+  margin-bottom: 15px;
+}
+
+.post > .shared-post {
+  border: 1px solid var(--icon);
+  border-radius: 30px 30px 15px 15px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.post > .shared-post > img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+
+.post > .shared-post .author {
+  padding-left: 15px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.post > .shared-post .author > img {
+  height: 45px;
+  width: 45px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 12px;
+}
+
+.post > .shared-post .author div {
+  display: flex;
+  gap: 2px;
+  flex-direction: column;
+}
+
+.post > .shared-post .author h2 {
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.post > .shared-post .author h3 {
+  font-weight: 300;
+  color: var(--text);
+  font-size: 0.85rem;
+}
+
+.post > .shared-post > p {
+  color: var(--text);
+}
+
+.post .statistics {
+  display: grid;
+  align-items: baseline;
+  grid-template-columns: repeat(2, 1fr);
+  margin-bottom: 15px;
+}
+
+.post .statistics > div:last-of-type {
+  grid-column: 2 / 3;
+  justify-self: flex-end;
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+}
+
+.post .statistics .all-likes,
+.post .statistics .all-shares {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border-radius: 6px;
+  background-color: var(--dark-gray);
+  padding: 10px;
+  z-index: 1;
+  animation: fadein 0.3s;
+}
+
+.post .statistics .all-shares {
+  right: 0;
+  min-width: max-content;
+}
+
+.post .statistics .all-likes p,
+.post .statistics .all-shares p {
+  color: var(--white);
+  font-size: 0.7rem;
+}
+
+.post .statistics p,
+.post .statistics p > * {
+  color: var(--text);
+  font-size: 0.8rem;
+}
+
+.post .statistics p:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.post .actions {
+  padding: 10px 35px;
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 0.5px solid var(--icon);
+  border-bottom: 0.5px solid var(--icon);
+  margin-bottom: 15px;
+}
+
+.post .actions button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: transparent;
+  border: none;
+  fill: var(--icon);
+  color: var(--icon);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.post .actions button:not(.pressed):hover {
+  fill: var(--black);
+  color: var(--black);
+}
+
+.post .actions button.pressed {
+  fill: var(--black);
+  color: var(--black);
+}
+
+.post .actions button svg {
+  height: 25px;
+  width: 25px;
+}
+
+.post .actions button div {
+  color: inherit;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.post > form {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 35px 1fr 30px;
+  align-items: center;
+}
+
+.post > form:not(:last-child) {
+  margin-bottom: 15px;
+}
+
+.post > form img {
+  height: 35px;
+  width: 35px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 12px;
+}
+
+.post > form input {
+  height: 30px;
+  width: 100%;
+  padding-left: 10px;
+  border: 0.5px solid var(--icon);
+  border-radius: 12px;
+}
+
+.post > form input:focus {
+  outline: none;
+  border: 0.5px solid var(--black);
+}
+
+.post > form button {
+  display: flex;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.post > form svg {
+  height: 30px;
+  width: 30px;
+  fill: var(--icon);
+  transition: all 0.2s;
+}
+
+.post > form button:hover svg {
+  fill: var(--blue);
+}
+
+.post button.show-comments:last-of-type {
+  text-align: left;
+  max-width: max-content;
+  color: var(--text);
+  background-color: transparent;
+  border: none;
+  font-weight: 500;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 15px;
+}
+
+.post button.show-comments:last-of-type:hover {
+  color: var(--black);
+}

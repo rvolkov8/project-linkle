@@ -1,0 +1,112 @@
+.middle-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.middle-column > h4 {
+  color: var(--text);
+  font-size: 1.1rem;
+  animation: fadein 3.5s;
+}
+
+.middle-column > .err {
+  position: fixed;
+  max-width: 800px;
+  top: 100px;
+  background: var(--red);
+  color: var(--white);
+  font-weight: 700;
+  border-radius: 12px;
+  padding: 10px 20px;
+  z-index: 3;
+  animation:
+    fadein 0.5s,
+    fadeout 0.5s ease 3.5s;
+}
+
+.middle-column > .dots {
+  width: 56px;
+  height: 26.9px;
+  background:
+    radial-gradient(circle closest-side, var(--icon) 90%, #0000) 0% 50%,
+    radial-gradient(circle closest-side, var(--icon) 90%, #0000) 50% 50%,
+    radial-gradient(circle closest-side, var(--icon) 90%, #0000) 100% 50%;
+  background-size: calc(100% / 3) 13.4px;
+  background-repeat: no-repeat;
+  animation:
+    dots-7ar3yq 1s infinite linear,
+    fadein 1.5s;
+}
+
+@keyframes dots-7ar3yq {
+  20% {
+    background-position:
+      0% 0%,
+      50% 50%,
+      100% 50%;
+  }
+
+  40% {
+    background-position:
+      0% 100%,
+      50% 0%,
+      100% 50%;
+  }
+
+  60% {
+    background-position:
+      0% 50%,
+      50% 100%,
+      100% 0%;
+  }
+
+  80% {
+    background-position:
+      0% 50%,
+      50% 50%,
+      100% 100%;
+  }
+}
+
+.right-column > .friends {
+  position: sticky;
+  top: 90px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  overflow: hidden;
+}
+
+.right-column > .friends > .container {
+  height: calc(100vh - 156px);
+  width: 250px;
+  background-color: var(--dark-bg);
+  box-shadow: var(--inner-shadow);
+  border-radius: 30px 0 0 30px;
+  padding: 15px;
+  overflow: hidden;
+  animation: friendsSlideIn 1s ease;
+}
+
+.right-column > .friends > .container > div {
+  overflow: scroll;
+  height: calc(100vh - 156px - 30px);
+  border-radius: 20px 0 0 20px;
+}
+
+.right-column > .friends h2 {
+  padding-left: 20px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--text);
+}
+
+@keyframes friendsSlideIn {
+  0% {
+    transform: translate(+100%);
+  }
+  100% {
+    transform: translate(0);
+  }
+}

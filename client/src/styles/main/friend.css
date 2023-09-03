@@ -1,0 +1,86 @@
+.friend {
+  display: grid;
+  grid-template-columns: 40px 1fr 25px;
+  align-items: center;
+  gap: 15px;
+  background-color: var(--white);
+  padding: 10px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.friend:hover {
+  box-shadow: var(--strong-hover-shadow);
+}
+
+.friend:not(:last-of-type) {
+  margin-bottom: 15px;
+}
+
+.friend > img {
+  height: 40px;
+  width: 40px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 12px;
+}
+
+.friend > div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.friend h3 {
+  font-weight: 700;
+  font-size: 0.8rem;
+  cursor: inherit;
+}
+
+.friend > div > div {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.friend > div svg {
+  width: 12px;
+  height: 12px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.friend > div svg.online {
+  fill: var(--green);
+  filter: var(--online-shadow);
+}
+
+.friend > div svg.offline {
+  fill: var(--red);
+  filter: var(--offline-shadow);
+}
+
+.friend p {
+  font-size: 0.7rem;
+  cursor: inherit;
+}
+
+.friend p.online {
+  color: var(--green);
+}
+
+.friend p.offline {
+  color: var(--red);
+}
+
+.friend > svg {
+  animation: fadein 0.8s;
+  fill: var(--black);
+  transition: all 0.2s;
+}
+
+.friend > svg:hover {
+  fill: var(--blue);
+}

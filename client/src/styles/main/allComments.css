@@ -1,0 +1,114 @@
+.all-comments {
+  position: fixed;
+  background-color: rgba(255, 255, 255, 0.6);
+  right: 0;
+  left: 0;
+  bottom: 0;
+  top: 60px;
+  z-index: 1;
+  animation: fadein 0.3s;
+}
+
+.all-comments > .container {
+  position: absolute;
+  height: 560px;
+  width: 580px;
+  background-color: var(--white);
+  box-shadow: var(--dark-shadow);
+  border-radius: 30px;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  padding: 25px;
+  display: grid;
+  grid-template-rows: 40px 1fr 50px;
+}
+
+.all-comments .heading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: solid 1px var(--icon);
+  padding-bottom: 15px;
+}
+
+.all-comments .heading h2 {
+  font-weight: 700;
+  color: var(--text);
+  font-size: 1.1rem;
+}
+
+.all-comments .heading button {
+  position: absolute;
+  right: 0;
+  background-color: transparent;
+  font-weight: 700;
+  border-radius: 30px;
+  padding: 3px 6px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  color: var(--text);
+  transition: all 0.2s;
+}
+
+.all-comments .heading button:hover {
+  border: 1px solid var(--black);
+  color: var(--black);
+}
+
+.all-comments .comments {
+  overflow: scroll;
+  padding: 20px;
+}
+
+.all-comments .comments > .comment:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.all-comments .container > form {
+  padding-top: 15px;
+  border-top: 0.5px solid var(--icon);
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 35px 1fr 30px;
+  align-items: center;
+}
+
+.all-comments .container > form img {
+  height: 35px;
+  width: 35px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 12px;
+}
+
+.all-comments .container > form input {
+  height: 30px;
+  width: 100%;
+  padding-left: 10px;
+  border: 0.5px solid var(--icon);
+  border-radius: 12px;
+}
+
+.all-comments .container > form input:focus {
+  outline: none;
+  border: 0.5px solid var(--black);
+}
+
+.all-comments .container > form button {
+  display: flex;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.all-comments .container > form svg {
+  height: 30px;
+  width: 30px;
+  fill: var(--icon);
+  transition: all 0.2s;
+}
+
+.all-comments .container > form button:hover svg {
+  fill: var(--blue);
+}

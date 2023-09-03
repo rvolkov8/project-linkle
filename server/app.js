@@ -29,4 +29,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', authRouter);
 app.use('/api', apiRouter);
 
+app.use((req, res) => {
+  res.status(404).json({ msg: '404: Not found.' });
+});
+
 module.exports = app;

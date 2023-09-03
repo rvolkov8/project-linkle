@@ -31,7 +31,6 @@ exports.postSignUp = async (req, res) => {
       currentCity,
       hometown,
     } = req.body;
-    console.log(req.file);
 
     if (await User.findOne({ username: username })) {
       return res
@@ -67,7 +66,7 @@ exports.postSignUp = async (req, res) => {
     res
       .status(500)
       .json({ step: 1, msg: 'Internal sever error. Please, try again later.' });
-    console.log('Error when trying to sing up: ', err);
+    console.log('Error when trying to sign up: ', err);
   }
 };
 
@@ -103,10 +102,5 @@ exports.postLogIn = async (req, res) => {
         msg: `Sorry, your password was incorrect. Please double-check your password.`,
       });
     }
-  } catch (err) {
-    res
-      .status(500)
-      .json({ msg: 'Internal sever error. Please, try again later.' });
-    console.log('Error when trying to log in: ', err);
-  }
+  } catch (err) {}
 };

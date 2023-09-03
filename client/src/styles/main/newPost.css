@@ -1,0 +1,133 @@
+.new-post {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 580px;
+  margin-bottom: 30px;
+  animation: fadein 1.5s;
+}
+
+.new-post h2 {
+  padding-left: 20px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--text);
+}
+
+.new-post form {
+  background-color: var(--white);
+  padding: 25px;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow);
+}
+
+.new-post img {
+  background-color: var(--gray);
+  border-radius: 20px;
+  max-height: 420px;
+  margin-bottom: 15px;
+  object-fit: contain;
+  object-position: center;
+}
+
+.new-post .remove-picture {
+  position: absolute;
+  right: 40px;
+  top: 40px;
+  background-color: var(--gray);
+  font-weight: 700;
+  border-radius: 30px;
+  padding: 3px 6px;
+  border: 1px solid var(--gray);
+  cursor: pointer;
+}
+
+.new-post .remove-picture:hover {
+  border: 1px solid var(--black);
+}
+
+.new-post textarea {
+  width: 100%;
+  height: 80px;
+  padding: 10px;
+  border: 0.5px solid var(--icon);
+  border-radius: 12px;
+  resize: none;
+  font-size: 1rem;
+  margin-bottom: 15px;
+}
+
+.new-post textarea:focus {
+  outline: none;
+  border: 0.5px solid var(--black);
+}
+
+.new-post input {
+  display: none;
+}
+
+.new-post form > div {
+  display: flex;
+  justify-content: center;
+}
+
+.new-post label {
+  position: absolute;
+  left: 0;
+}
+
+.new-post svg {
+  position: absolute;
+  width: 35px;
+  height: auto;
+  top: -2px;
+  fill: var(--placeholder);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.new-post svg:hover {
+  fill: var(--icon);
+}
+
+.new-post .post-button {
+  align-self: center;
+  min-height: 30px;
+  background-color: transparent;
+  border-radius: 12px;
+  padding: 0 20px;
+  font-weight: 700;
+  color: var(--icon);
+  transition: all 0.2s;
+  cursor: default;
+}
+
+.new-post .post-button.disabled {
+  border: solid 1.5px var(--icon);
+  color: var(--icon);
+}
+
+.new-post .post-button.enabled {
+  border: solid 1.5px var(--blue);
+  color: var(--blue);
+  cursor: pointer;
+}
+
+.new-post .post-button.enabled:hover {
+  background-color: var(--blue);
+  color: var(--white);
+}
+
+.new-post .post-button.enabled:active {
+  background-color: var(--blue-pressed);
+  border: solid 1.5px var(--blue-pressed);
+}
+
+.new-post h3 {
+  margin-top: 15px;
+  text-align: center;
+  color: var(--red);
+  font-size: 0.9rem;
+}

@@ -11,4 +11,14 @@ const avatarStorage = multer.diskStorage({
 });
 const uploadAvatar = multer({ storage: avatarStorage });
 
-module.exports = { uploadAvatar: uploadAvatar };
+const postStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'public/images/posts');
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
+});
+const uploadPost = multer({ storage: postStorage });
+
+module.exports = { uploadAvatar: uploadAvatar, uploadPost: uploadPost };

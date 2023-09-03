@@ -1,7 +1,7 @@
 header {
   background-color: var(--white);
   box-shadow: var(--shadow);
-  z-index: 1;
+  z-index: 2;
 }
 
 .no-user-header {
@@ -15,4 +15,94 @@ header {
   color: var(--blue);
   font-size: 2rem;
   cursor: default;
+}
+
+/* User header */
+
+.user-header {
+  position: sticky;
+  top: 0;
+  padding: 0 40px;
+  display: grid;
+  grid-template-columns: 140px 1fr 1fr;
+  align-items: center;
+}
+
+.user-header .logo {
+  cursor: pointer;
+}
+
+.user-header > div {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  justify-self: flex-end;
+}
+
+.user-header > .search {
+  width: 450px;
+  justify-self: start;
+}
+
+.user-header > .search input {
+  width: 100%;
+  height: 35px;
+  border-radius: 12px;
+  padding: 0 20px;
+  background-color: var(--main-bg);
+  box-shadow: var(--inner-shadow);
+  border: none;
+  outline: none;
+  z-index: 1;
+}
+
+.user-header > .search input::placeholder {
+  color: var(--icon);
+}
+
+.user-header .user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-header .user-info > img {
+  height: 37px;
+  width: 37px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 12px;
+  border: solid 2.5px var(--blue);
+}
+
+.user-header h2 {
+  font-weight: 700;
+}
+
+.user-header .divider {
+  width: 1px;
+  height: 25px;
+  background-color: var(--icon);
+}
+
+.user-header svg {
+  width: 30px;
+  height: 30px;
+  fill: var(--icon);
+  transition: all 0.2s;
+  cursor: pointer;
+  animation: slideInMessengerIcon 1s ease;
+}
+
+.user-header svg:hover {
+  fill: var(--blue);
+}
+
+@keyframes slideInMessengerIcon {
+  0% {
+    transform: translateX(300%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
 }
