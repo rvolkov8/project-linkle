@@ -4,7 +4,7 @@ import Post from './Post';
 import { useEffect, useState } from 'react';
 import Friend from './Friend';
 
-const Home = ({ token, sideBarMenuElement, userData, err, handleNewErr }) => {
+const Home = ({ token, userData, err, handleNewErr }) => {
   const [friendsData, setFriendsData] = useState([]);
   const [friendsElements, setFriendsElements] = useState([]);
   const [feedPostsData, setFeedPostsData] = useState([]);
@@ -163,7 +163,7 @@ const Home = ({ token, sideBarMenuElement, userData, err, handleNewErr }) => {
 
   return (
     <>
-      <div className="left-column">{sideBarMenuElement}</div>
+      {/* <div className="left-column">{sideBarMenuElement}</div> */}
       <div className="middle-column">
         {err && <p className="err">{err}</p>}
         <NewPost

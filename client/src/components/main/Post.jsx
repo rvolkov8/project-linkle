@@ -3,6 +3,8 @@ import { useRef, useState } from 'react';
 import Comment from './Comment';
 import AllComments from './AllComments';
 import SharePost from './SharePost';
+import { useNavigate } from 'react-router';
+import { v4 as uuidv4 } from 'uuid';
 
 const Post = ({
   token,
@@ -11,12 +13,19 @@ const Post = ({
   updateSingleFeedPost,
   handleNewErr,
 }) => {
+  const navigate = useNavigate();
   const [commentText, setCommentText] = useState('');
   const [showAllComments, setShowAllComments] = useState(false);
   const inputRef = useRef(null);
   const [showAllLikes, setShowAllLikes] = useState(false);
   const [showSharePost, setShowSharePost] = useState(false);
   const [showAllShares, setShowAllShares] = useState(false);
+  const [showWholePostBody, setShowWholePostBody] = useState(
+    postData.body?.length < 250 ? true : false
+  );
+  const [showWholeSharedPostBody, setShowWholeSharedPostBody] = useState(
+    postData.sharesPost?.body?.length < 250 ? true : false
+  );
 
   const authorAvatarPicture = postData.author.avatarFileName
     ? `${import.meta.env.VITE_SERVER}/images/avatars/${
@@ -34,7 +43,7 @@ const Post = ({
   ) : null;
 
   // Shared post
-  const sharedPostData = postData.sharesPost && postData.sharesPost;
+  const sharedPostData = postData.sharesPost ? postData.sharesPost : null;
   const sharedPostPicture =
     sharedPostData && sharedPostData.picture
       ? `${import.meta.env.VITE_SERVER}/images/posts/${sharedPostData.picture}`
@@ -107,7 +116,7 @@ const Post = ({
   ));
 
   const sharedByUniqueNamesElements = uniqueNamesFromPostSharedBy.map(
-    (userName) => <p key={userName}>{userName}</p>
+    (userName) => <p key={uuidv4()}>{userName}</p>
   );
 
   const formatLikesText = () => {
@@ -253,26 +262,76 @@ const Post = ({
         />
       )}
       <div className="user">
-        <img src={authorAvatarPicture} alt="Profile picture" />
+        <img
+          src={authorAvatarPicture}
+          alt="Profile picture"
+          onClick={() => {
+            navigate(`/profile/${postData.author._id}`);
+          }}
+        />
         <div>
-          <h2>{authorFullName}</h2>
+          <h2
+            onClick={() => {
+              navigate(`/profile/${postData.author._id}`);
+            }}
+          >
+            {authorFullName}
+          </h2>
           <h3>{formatDate(postData.createdAt)}</h3>
         </div>
       </div>
-      <p>{postData.body && postData.body}</p>
+      {showWholePostBody && postData.body ? <p>{postData.body}</p> : null}
+      {!showWholePostBody && postData.body ? (
+        <div className="post-body">
+          <p>{postData.body.slice(0, 250)}...</p>
+          <button
+            onClick={() => {
+              setShowWholePostBody(true);
+            }}
+          >
+            See more
+          </button>
+        </div>
+      ) : null}
       {sharedPostData && (
         <div className="shared-post">
           {sharedPostPicture && (
             <img src={sharedPostPicture} alt="Post picture" />
           )}
           <div className="author">
-            <img src={sharedPostAuthorAvatarPicture} alt="Profile picture" />
+            <img
+              src={sharedPostAuthorAvatarPicture}
+              alt="Profile picture"
+              onClick={() => {
+                navigate(`/profile/${sharedPostData.author._id}`);
+              }}
+            />
             <div>
-              <h2>{sharedPostData.author.fullName}</h2>
+              <h2
+                onClick={() => {
+                  navigate(`/profile/${sharedPostData.author._id}`);
+                }}
+              >
+                {sharedPostData.author.fullName}
+              </h2>
               <h3>{formatDate(sharedPostData.createdAt)}</h3>
             </div>
           </div>
-          <p>{sharedPostData.body}</p>
+          {showWholeSharedPostBody && sharedPostData.body ? (
+            <p>{sharedPostData.body}</p>
+          ) : null}
+          {!showWholeSharedPostBody && sharedPostData.body ? (
+            <div className="shared-post-body">
+              <p>{sharedPostData.body.slice(0, 250)}...</p>
+              <button
+                onClick={() => {
+                  setShowWholeSharedPostBody(true);
+                }}
+              >
+                See more
+              </button>
+            </div>
+          ) : null}
         </div>
       )}
       {postPicture && postPicture}
@@ -305,9 +364,9 @@ const Post = ({
                 ? `1 share`
                 : `${postSharedBy.length} shares`}
             </p>
-            {showAllShares && (
+            {showAllShares && sharedByUniqueNamesElements.length > 0 ? (
               <div className="all-shares">{sharedByUniqueNamesElements}</div>
-            )}
+            ) : null}
           </div>
         </div>
       </div>

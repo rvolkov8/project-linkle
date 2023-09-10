@@ -1,0 +1,181 @@
+.edit-profile {
+  position: fixed;
+  background-color: rgba(255, 255, 255, 0.6);
+  right: 0;
+  left: 0;
+  bottom: 0;
+  top: 60px;
+  z-index: 1;
+  animation: fadein 0.3s;
+}
+
+.edit-profile > .container {
+  position: absolute;
+  height: 560px;
+  width: 580px;
+  background-color: var(--white);
+  box-shadow: var(--dark-shadow);
+  border-radius: 30px;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  padding: 25px;
+  display: grid;
+  grid-template-rows: 40px 1fr 45px;
+}
+
+.edit-profile .heading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: solid 1px var(--icon);
+  padding-bottom: 15px;
+}
+
+.edit-profile .heading h2 {
+  font-weight: 700;
+  color: var(--text);
+  font-size: 1.1rem;
+}
+
+.edit-profile .heading button {
+  position: absolute;
+  right: 0;
+  background-color: transparent;
+  font-weight: 700;
+  border-radius: 30px;
+  padding: 3px 6px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  color: var(--text);
+  transition: all 0.2s;
+}
+
+.edit-profile .heading button:hover {
+  border: 1px solid var(--black);
+  color: var(--black);
+}
+
+.edit-profile .sub-container {
+  overflow: scroll;
+  padding: 10px 0;
+}
+
+.edit-profile form {
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-profile form > div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.edit-profile form > div:not(:last-child) {
+  margin-bottom: 15px;
+}
+
+.edit-profile form > button {
+  border: none;
+  color: var(--text);
+  align-self: center;
+  background-color: transparent;
+  margin-bottom: 15px;
+  font-weight: 700;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.edit-profile form > button:hover {
+  color: var(--blue);
+}
+
+.edit-profile form > div > button {
+  position: absolute;
+  right: 15px;
+  bottom: 0;
+  height: 40px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--icon);
+  transition: all 0.2s;
+}
+
+.edit-profile form > div > button:hover {
+  color: var(--red);
+}
+
+.edit-profile form label {
+  padding-left: 10px;
+  font-size: 0.9rem;
+  color: var(--text);
+  font-weight: 700;
+}
+
+.edit-profile form input {
+  height: 40px;
+  width: 100%;
+  border-radius: 12px;
+  border: 0.5px solid var(--icon);
+  padding-left: 20px;
+}
+
+.edit-profile form input:focus {
+  outline: none;
+  border: 0.5px solid var(--black);
+}
+
+.edit-profile form textarea {
+  width: 100%;
+  height: 80px;
+  padding: 10px 20px;
+  border: 0.5px solid var(--icon);
+  border-radius: 12px;
+  resize: none;
+  font-size: 1rem;
+}
+
+.edit-profile form textarea:focus {
+  outline: none;
+  border: 0.5px solid var(--black);
+}
+
+.edit-profile .container > .save {
+  display: flex;
+  align-items: end;
+  justify-self: end;
+}
+
+.edit-profile .container > .save > div > p {
+  color: var(--red);
+  font-size: 0.9rem;
+}
+
+.edit-profile .container > .save > div > button {
+  font-weight: 700;
+  transition: all 0.2s;
+  border-radius: 12px;
+  justify-self: end;
+  align-self: end;
+  padding: 5px 25px;
+  margin-left: 15px;
+}
+
+.edit-profile .container > .save > div > button.disabled {
+  background-color: transparent;
+  color: var(--icon);
+  border: 1px solid var(--icon);
+}
+
+.edit-profile .container > .save > div > button.enabled {
+  background-color: var(--blue);
+  color: var(--white);
+  border: 1px solid var(--blue);
+  cursor: pointer;
+}
+
+.edit-profile .container > .save > div > button.enabled:hover {
+  background-color: var(--blue-pressed);
+}

@@ -1,6 +1,9 @@
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router';
 
 const Comment = ({ commentData, userData, formatDate }) => {
+  const navigate = useNavigate();
+
   const avatarPicture = commentData.author.avatarFileName
     ? `${import.meta.env.VITE_SERVER}/images/avatars/${
         commentData.author.avatarFileName
@@ -9,19 +12,31 @@ const Comment = ({ commentData, userData, formatDate }) => {
 
   const authorFullName = commentData.author.fullName;
 
-  const isFriend = userData.friends.some(
-    (friendId) => friendId === commentData.author._id
-  );
+  const isFriend = userData.friends.some((friend) => {
+    return friend._id === commentData.author._id;
+  });
 
   const isUser = commentData.author._id === userData._id;
 
   return (
     <div className="comment">
-      <img src={avatarPicture} alt="Avatar" />
+      <img
+        src={avatarPicture}
+        alt="Avatar"
+        onClick={() => {
+          navigate(`/profile/${commentData.author._id}`);
+        }}
+      />
       <div>
         <div className="author-info">
           <div>
-            <h3>{authorFullName}</h3>
+            <h3
+              onClick={() => {
+                navigate(`/profile/${commentData.author._id}`);
+              }}
+            >
+              {authorFullName}
+            </h3>
             {!isFriend && !isUser ? (
               <>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

@@ -29,7 +29,7 @@ exports.postSignUp = async (req, res) => {
       firstName,
       lastName,
       currentCity,
-      hometown,
+      homeTown,
     } = req.body;
 
     if (await User.findOne({ username: username })) {
@@ -57,8 +57,8 @@ exports.postSignUp = async (req, res) => {
     if (currentCity) {
       user.currentCity = currentCity;
     }
-    if (hometown) {
-      user.hometown = hometown;
+    if (homeTown) {
+      user.homeTown = homeTown;
     }
     await user.save();
     res.sendStatus(201);

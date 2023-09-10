@@ -23,6 +23,7 @@
   object-fit: cover;
   object-position: center;
   border-radius: 12px;
+  cursor: pointer;
 }
 
 .post .user div {
@@ -33,6 +34,11 @@
 
 .post .user h2 {
   font-weight: 700;
+  cursor: pointer;
+}
+
+.post .user h2:hover {
+  text-decoration: underline;
 }
 
 .post .user h3 {
@@ -41,9 +47,32 @@
   font-size: 0.85rem;
 }
 
-.post > p {
+.post > p,
+.post > .post-body > p,
+.post .shared-post-body > p {
   color: var(--text);
   margin-bottom: 15px;
+}
+
+.post > .post-body > p:first-child,
+.post .shared-post-body > p:first-child {
+  margin-bottom: 5px;
+}
+
+.post > .post-body > button,
+.post .shared-post-body > button {
+  background-color: transparent;
+  border: none;
+  margin-bottom: 5px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.post > .post-body > button:hover,
+.post .shared-post-body > button:hover {
+  text-decoration: underline;
 }
 
 .post > img {
@@ -85,6 +114,7 @@
   object-fit: cover;
   object-position: center;
   border-radius: 12px;
+  cursor: pointer;
 }
 
 .post > .shared-post .author div {
@@ -96,6 +126,11 @@
 .post > .shared-post .author h2 {
   font-weight: 700;
   font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.post > .shared-post .author h2:hover {
+  text-decoration: underline;
 }
 
 .post > .shared-post .author h3 {

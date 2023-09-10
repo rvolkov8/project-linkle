@@ -12,6 +12,7 @@
   border-radius: 50px;
   cursor: pointer;
   animation: slidein 1s ease;
+  z-index: 1;
 }
 
 .sidebar-menu > .option:first-child {

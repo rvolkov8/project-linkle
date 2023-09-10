@@ -11,8 +11,33 @@ exports.getCurrentUser = async (req, res) => {
 
     const decodedToken = jwt.decode(token);
     const userData = await User.findById({ _id: decodedToken.id })
+      .select('-password -username')
       .populate({ path: 'friends', model: 'User' })
+      .populate({
+        path: 'posts',
+        model: 'Post',
+        populate: {
+          path: 'author',
+          model: 'User',
+          select: 'firstName lastName fullName avatarFileName friends',
+        },
+      })
+      .populate({
+        path: 'posts',
+        model: 'Post',
+        populate: {
+          path: 'sharesPost',
+          model: 'Post',
+          populate: {
+            path: 'author',
+            model: 'User',
+            select: 'firstName lastName fullName avatarFileName friends',
+          },
+        },
+      })
       .exec();
+
+    userData.posts.sort((a, b) => b.createdAt - a.createdAt);
 
     if (requestedFields) {
       const requestedFieldsArr = requestedFields.split(',');
@@ -31,6 +56,175 @@ exports.getCurrentUser = async (req, res) => {
       .status(500)
       .json({ msg: 'Internal server error. Please, try again later.' });
     console.log('Error when trying to get current user data: ', err);
+  }
+};
+
+exports.getUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const userData = await User.findById({ _id: id })
+      .select('-password -username')
+      .populate({ path: 'friends', model: 'User' })
+      .populate({
+        path: 'posts',
+        model: 'Post',
+        populate: {
+          path: 'author',
+          model: 'User',
+          select: 'firstName lastName fullName avatarFileName friends',
+        },
+      })
+      .populate({
+        path: 'posts',
+        model: 'Post',
+        populate: {
+          path: 'sharesPost',
+          model: 'Post',
+          populate: {
+            path: 'author',
+            model: 'User',
+            select: 'firstName lastName fullName avatarFileName friends',
+          },
+        },
+      })
+      .populate({
+        path: 'posts',
+        model: 'Post',
+        populate: {
+          path: 'likedBy',
+          model: 'User',
+          select: 'fullName',
+        },
+      })
+      .populate({
+        path: 'posts',
+        model: 'Post',
+        populate: {
+          path: 'sharedBy',
+          model: 'User',
+          select: 'fullName',
+        },
+      })
+      .exec();
+
+    userData.posts.sort((a, b) => b.createdAt - a.createdAt);
+
+    res.status(200).json(userData);
+  } catch (err) {
+    res
+      .status(500)
+      .json({ msg: 'Internal server error. Please, try again later.' });
+    console.log('Error when trying to get user data: ', err);
+  }
+};
+
+exports.patchCurrentUser = async (req, res) => {
+  try {
+    const result = validationResult(req);
+    if (!result.isEmpty()) {
+      return res.status(400).json({ msg: result.array()[0].msg });
+    }
+
+    const { firstName, lastName, bio, currentCity, homeTown } = req.body;
+
+    const token = req.headers.authorization.replace('Bearer ', '');
+    const decodedToken = jwt.decode(token);
+    const userId = decodedToken.id;
+
+    const user = await User.findOne({ _id: userId }).exec();
+    user.firstName = firstName.trim();
+    user.lastName = lastName.trim();
+    user.bio = bio.trim();
+    user.currentCity = currentCity.trim();
+    user.homeTown = homeTown.trim();
+    await user.save();
+
+    res.sendStatus(204);
+  } catch (err) {
+    res
+      .status(500)
+      .json({ msg: 'Internal server error. Please, try again later.' });
+    console.log('Error when trying to patch current user: ', err);
+  }
+};
+
+exports.patchRemoveFriend = async (req, res) => {
+  try {
+    const { friendId } = req.query;
+
+    const token = req.headers.authorization.replace('Bearer ', '');
+    const decodedToken = jwt.decode(token);
+    const userId = decodedToken.id;
+
+    const currentUser = await User.findOne({ _id: userId }).exec();
+    const updatedUserFriends = currentUser.friends.filter(
+      (friend) => !friend.equals(friendId)
+    );
+    console.log(updatedUserFriends);
+    currentUser.friends = updatedUserFriends;
+    await currentUser.save();
+
+    const friend = await User.findOne({ _id: friendId }).exec();
+    const updatedFriendFriends = friend.friends.filter(
+      (friend) => !friend.equals(userId)
+    );
+    friend.friends = updatedFriendFriends;
+    await friend.save();
+
+    res.sendStatus(204);
+  } catch (err) {
+    res
+      .status(500)
+      .json({ msg: 'Internal server error. Please, try again later.' });
+    console.log('Error when trying to remove friend: ', err);
+  }
+};
+
+exports.patchSendFriendRequest = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const token = req.headers.authorization.replace('Bearer ', '');
+    const decodedToken = jwt.decode(token);
+    const currentUserId = decodedToken.id;
+
+    const user = await User.findOne({ _id: id }).exec();
+    user.friendRequests.push(currentUserId);
+    await user.save();
+
+    res.sendStatus(204);
+  } catch (err) {
+    res
+      .status(500)
+      .json({ msg: 'Internal server error. Please, try again later.' });
+    console.log('Error when trying to remove friend: ', err);
+  }
+};
+
+exports.patchCancelFriendRequest = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const token = req.headers.authorization.replace('Bearer ', '');
+    const decodedToken = jwt.decode(token);
+    const currentUserId = decodedToken.id;
+
+    const user = await User.findOne({ _id: id }).exec();
+    console.log(user.friendRequests);
+    const updatedFriendRequests = user.friendRequests.filter(
+      (request) => !request.equals(currentUserId)
+    );
+    console.log(updatedFriendRequests);
+    user.friendRequests = updatedFriendRequests;
+    await user.save();
+
+    res.sendStatus(204);
+  } catch (err) {
+    res
+      .status(500)
+      .json({ msg: 'Internal server error. Please, try again later.' });
+    console.log('Error when trying to remove friend: ', err);
   }
 };
 
@@ -195,6 +389,7 @@ exports.getFeedPosts = async (req, res) => {
       (a, b) => b.createdAt - a.createdAt
     );
 
+    console.log(sortedFriendsPosts);
     res.status(200).json(sortedFriendsPosts);
   } catch (err) {
     res
@@ -211,7 +406,7 @@ exports.getPost = async (req, res) => {
       .populate({
         path: 'author',
         model: 'User',
-        select: 'firstName lastName avatarFileName friends',
+        select: 'firstName lastName fullName avatarFileName friends',
       })
       .populate({
         path: 'sharesPost',
@@ -273,6 +468,7 @@ exports.getSearchResults = async (req, res) => {
 exports.patchLikePost = async (req, res) => {
   try {
     const postId = req.params.id;
+    console.log(postId);
 
     const token = req.headers.authorization.replace('Bearer ', '');
     const decodedToken = jwt.decode(token);
@@ -281,8 +477,6 @@ exports.patchLikePost = async (req, res) => {
     const post = await Post.findOne({ _id: postId });
     if (!post.likedBy.includes(userId)) {
       post.likedBy.push(userId);
-    } else {
-      res.status(400).json('The post is already liked.');
     }
     await post.save();
 
@@ -325,16 +519,17 @@ exports.patchUserOnline = async (req, res) => {
     const decodedToken = jwt.decode(token);
     const userId = decodedToken.id;
 
-    const user = await User.findOne({ _id: userId });
-    user.isOnline = true;
-    await user.save();
+    const user = await User.findByIdAndUpdate(
+      { _id: userId },
+      { isOnline: true }
+    );
 
     res.sendStatus(204);
   } catch (err) {
     res
       .status(500)
       .json({ msg: 'Internal server error. Please, try again later.' });
-    console.log('Error when trying to change user status: ', err);
+    console.log('Error when trying to change user status (online): ', err);
   }
 };
 
@@ -344,15 +539,16 @@ exports.patchUserOffline = async (req, res) => {
     const decodedToken = jwt.decode(token);
     const userId = decodedToken.id;
 
-    const user = await User.findById({ _id: userId });
-    user.isOnline = false;
-    await user.save();
+    const user = await User.findByIdAndUpdate(
+      { _id: userId },
+      { isOnline: false }
+    );
 
     res.sendStatus(204);
   } catch (err) {
     res
       .status(500)
       .json({ msg: 'Internal server error. Please, try again later.' });
-    console.log('Error when trying to change user status: ', err);
+    console.log('Error when trying to change user status (offline): ', err);
   }
 };

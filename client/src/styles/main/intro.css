@@ -1,0 +1,63 @@
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  margin-bottom: 30px;
+  animation: fadein 1.5s;
+}
+
+.intro h2 {
+  padding-left: 20px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--text);
+}
+
+.intro .content {
+  background-color: var(--white);
+  padding: 25px;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow);
+}
+
+.intro .content > .bio {
+  color: var(--text);
+  text-align: justify;
+  font-size: 0.9rem;
+}
+
+.intro .content > .bio:not(:last-child) {
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--icon);
+  margin-bottom: 15px;
+}
+
+.intro .content > div:not(.bio) {
+  display: grid;
+  grid-template-columns: 25px 1fr;
+  align-items: center;
+  gap: 10px;
+}
+
+.intro .content > div:not(.bio):not(:last-of-type) {
+  margin-bottom: 10px;
+}
+
+.intro .content > div:not(.bio) > svg {
+  width: 25px;
+  height: 25px;
+  fill: var(--text);
+  justify-self: center;
+}
+
+.intro .content > div:not(.bio) > p {
+  color: var(--text);
+}
+
+.intro .content > div:not(.bio) > p > strong {
+  color: var(--text);
+  font-weight: 700;
+}

@@ -15,6 +15,7 @@
   object-position: center;
   border-radius: 12px;
   align-self: flex-start;
+  cursor: pointer;
 }
 
 .comment .author-info {
@@ -33,6 +34,11 @@
 .comment h3 {
   font-weight: 700;
   font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.comment h3:hover {
+  text-decoration: underline;
 }
 
 .comment svg {

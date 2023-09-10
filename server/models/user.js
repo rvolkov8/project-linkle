@@ -9,7 +9,6 @@ const userSchema = new Schema({
   fullName: { type: String },
   avatarFileName: { type: String, default: null },
   bio: { type: String, default: null },
-  education: [{ type: String, default: null }],
   currentCity: { type: String, default: null },
   homeTown: { type: String, default: null },
   education: [{ type: String }],

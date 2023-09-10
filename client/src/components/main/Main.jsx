@@ -3,17 +3,20 @@ import PropTypes from 'prop-types';
 import LogIn from './LogIn';
 import SignUp from './SignUp';
 import Home from './Home';
-import { useState } from 'react';
 import SidebarMenu from './SidebarMenu';
+import Profile from './Profile';
 
-const Main = ({ token, setToken, userData, err, handleNewErr }) => {
-  const [currentPage, setCurrentPage] = useState('home');
-  const sideBarMenuElement = (
-    <SidebarMenu currentPage={currentPage} setCurrentPage={setCurrentPage} />
-  );
-
+const Main = ({
+  token,
+  setToken,
+  userData,
+  err,
+  handleNewErr,
+  updateUserData,
+}) => {
   return (
     <main className="main">
+      <SidebarMenu userData={userData} />
       <Routes>
         <Route
           path="/login"
@@ -25,10 +28,21 @@ const Main = ({ token, setToken, userData, err, handleNewErr }) => {
           element={
             <Home
               token={token}
-              sideBarMenuElement={sideBarMenuElement}
               userData={userData}
               err={err}
               handleNewErr={handleNewErr}
+            />
+          }
+        />
+        <Route
+          path="/profile/:id"
+          element={
+            <Profile
+              token={token}
+              userData={userData}
+              err={err}
+              handleNewErr={handleNewErr}
+              updateUserData={updateUserData}
             />
           }
         />
@@ -43,6 +57,7 @@ Main.propTypes = {
   userData: PropTypes.object,
   err: PropTypes.string,
   handleNewErr: PropTypes.func,
+  updateUserData: PropTypes.func,
 };
 
 export default Main;

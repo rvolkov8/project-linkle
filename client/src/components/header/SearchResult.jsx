@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router';
 
-const SearchResult = ({ resultData }) => {
+const SearchResult = ({ resultData, setSearchInput }) => {
+  const navigate = useNavigate();
   const avatarPicture = resultData.avatarFileName
     ? `${import.meta.env.VITE_SERVER}/images/avatars/${
         resultData.avatarFileName
@@ -9,7 +11,13 @@ const SearchResult = ({ resultData }) => {
   const fullName = `${resultData.firstName} ${resultData.lastName}`;
 
   return (
-    <div className="result">
+    <div
+      className="result"
+      onClick={() => {
+        setSearchInput('');
+        navigate(`/profile/${resultData._id}`);
+      }}
+    >
       <img src={avatarPicture} alt="Avatar" /> <h3>{fullName}</h3>
     </div>
   );
@@ -17,6 +25,7 @@ const SearchResult = ({ resultData }) => {
 
 SearchResult.propTypes = {
   resultData: PropTypes.object,
+  setSearchInput: PropTypes.func,
 };
 
 export default SearchResult;

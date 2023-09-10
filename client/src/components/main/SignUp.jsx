@@ -16,7 +16,7 @@ const SignUp = ({ token }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [currentCity, setCurrentCity] = useState('');
-  const [hometown, setHometown] = useState('');
+  const [homeTown, setHomeTown] = useState('');
   const [successfullySignedUp, setSuccessfullySignedUp] = useState(false);
 
   useEffect(() => {
@@ -105,8 +105,8 @@ const SignUp = ({ token }) => {
   const handleCurrentCityChange = (event) => {
     setCurrentCity(event.target.value);
   };
-  const handleHometownChange = (event) => {
-    setHometown(event.target.value);
+  const handleHomeTownChange = (event) => {
+    setHomeTown(event.target.value);
   };
 
   const handleSubmit = async (event) => {
@@ -125,8 +125,8 @@ const SignUp = ({ token }) => {
       if (currentCity) {
         formData.append('currentCity', currentCity);
       }
-      if (hometown) {
-        formData.append('hometown', hometown);
+      if (homeTown) {
+        formData.append('homeTown', homeTown);
       }
 
       const res = await fetch(`${import.meta.env.VITE_SERVER}/signup`, {
@@ -351,8 +351,8 @@ const SignUp = ({ token }) => {
             </svg>
             <input
               type="text"
-              onChange={handleHometownChange}
-              value={hometown}
+              onChange={handleHomeTownChange}
+              value={homeTown}
               placeholder="Enter hometown (optional)"
               maxLength={55}
               autoComplete="new-hometown"

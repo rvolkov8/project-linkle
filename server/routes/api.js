@@ -19,8 +19,25 @@ router.get(
 
 router.get(
   '/user/me',
+  body('body')
+    .trim()
+    .notEmpty()
+    .withMessage('The field is empty. Please, fill the text area.'),
   passport.authenticate('jwt', { session: false }),
   apiController.getCurrentUser
+);
+
+router.patch(
+  '/user/me/patch',
+  [
+    body('firstName').trim().notEmpty().withMessage('First name is required.'),
+    body('lastName').trim().notEmpty().withMessage('Last name is required.'),
+    body('bio'),
+    body('currentCity'),
+    body('homeTown'),
+  ],
+  passport.authenticate('jwt', { session: false }),
+  apiController.patchCurrentUser
 );
 
 router.patch(
@@ -30,9 +47,39 @@ router.patch(
 );
 
 router.patch(
+  '/user/me/remove-friend',
+  passport.authenticate('jwt', { session: false }),
+  apiController.patchRemoveFriend
+);
+
+router.get(
+  '/user/search',
+  passport.authenticate('jwt', { session: false }),
+  apiController.getSearchResults
+);
+
+router.patch(
   '/user/me/offline',
   passport.authenticate('jwt', { session: false }),
   apiController.patchUserOffline
+);
+
+router.get(
+  '/user/:id',
+  passport.authenticate('jwt', { session: false }),
+  apiController.getUser
+);
+
+router.patch(
+  '/user/:id/friend-request/send',
+  passport.authenticate('jwt', { session: false }),
+  apiController.patchSendFriendRequest
+);
+
+router.patch(
+  '/user/:id/friend-request/cancel',
+  passport.authenticate('jwt', { session: false }),
+  apiController.patchCancelFriendRequest
 );
 
 router.post(
@@ -41,15 +88,14 @@ router.post(
   body('body')
     .trim()
     .notEmpty()
-    .withMessage('The field is empty. Please, fill the text area.')
-    .escape(),
+    .withMessage('The field is empty. Please, fill the text area.'),
   passport.authenticate('jwt', { session: false }),
   apiController.postUploadPost
 );
 
 router.post(
   '/post/share',
-  body('body').optional().escape(),
+  body('body').optional(),
   passport.authenticate('jwt', { session: false }),
   apiController.postSharePost
 );
@@ -59,8 +105,7 @@ router.post(
   body('body')
     .trim()
     .notEmpty()
-    .withMessage('The field is empty. Please, fill the text area.')
-    .escape(),
+    .withMessage('The field is empty. Please, fill the text area.'),
   passport.authenticate('jwt', { session: false }),
   apiController.postUploadComment
 );
@@ -75,12 +120,6 @@ router.get(
   '/post/:id',
   passport.authenticate('jwt', { session: false }),
   apiController.getPost
-);
-
-router.get(
-  '/user/search',
-  passport.authenticate('jwt', { session: false }),
-  apiController.getSearchResults
 );
 
 router.patch(

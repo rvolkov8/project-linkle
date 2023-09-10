@@ -2,13 +2,24 @@ import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import SearchResult from './SearchResult';
 
-const SearchResults = ({ searchResultsData, err, noResults }) => {
+const SearchResults = ({
+  searchResultsData,
+  err,
+  noResults,
+  setSearchInput,
+}) => {
   const [searchResultsElements, setSearchResultsElements] = useState([]);
 
   const updateSearchResultsElements = () => {
     if (searchResultsData.length > 0) {
       const elements = searchResultsData.map((resultData) => {
-        return <SearchResult key={resultData._id} resultData={resultData} />;
+        return (
+          <SearchResult
+            key={resultData._id}
+            resultData={resultData}
+            setSearchInput={setSearchInput}
+          />
+        );
       });
       setSearchResultsElements(elements);
     }
@@ -51,6 +62,7 @@ SearchResults.propTypes = {
   searchResultsData: PropTypes.array,
   err: PropTypes.string,
   noResults: PropTypes.bool,
+  setSearchInput: PropTypes.func,
 };
 
 export default SearchResults;

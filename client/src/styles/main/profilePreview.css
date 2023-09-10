@@ -1,0 +1,74 @@
+.friends-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  margin-bottom: 30px;
+  animation: fadein 1.5s;
+}
+
+.friends-preview h2 {
+  padding-left: 20px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--text);
+}
+
+.friends-preview .content {
+  background-color: var(--white);
+  padding: 25px;
+  border-radius: 30px;
+  display: grid;
+  justify-content: space-between;
+  row-gap: 5px;
+  grid-template-columns: repeat(3, 75px);
+  box-shadow: var(--shadow);
+}
+
+.friends-preview .content > div:not(.friend-preview) {
+  grid-column: 1 / 4;
+  grid-row: 1/ 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.friends-preview .content > div:not(.friend-preview) > p {
+  color: var(--text);
+  font-size: 0.9rem;
+}
+
+.friends-preview .content > div:not(.friend-preview) > button {
+  background-color: transparent;
+  border: none;
+  color: var(--blue);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.friends-preview .content > div:not(.friend-preview) > button:hover {
+  text-decoration: underline;
+}
+
+.friends-preview .content > .friend-preview {
+  cursor: pointer;
+}
+
+.friends-preview .content > .friend-preview:hover h3 {
+  text-decoration: underline;
+}
+
+.friends-preview .content > .friend-preview > img {
+  width: 75px;
+  height: 85px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 12px;
+}
+
+.friends-preview .content > .friend-preview > h3 {
+  font-size: 0.7rem;
+  font-weight: 700;
+  cursor: inherit;
+}

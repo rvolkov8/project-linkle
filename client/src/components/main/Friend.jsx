@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
 
 const Friend = ({ friendData }) => {
+  const navigate = useNavigate();
   const [showMessenger, setShowMessenger] = useState(false);
 
   const avatarPicture = friendData.avatarFileName
@@ -23,6 +25,9 @@ const Friend = ({ friendData }) => {
       className="friend"
       onMouseEnter={toggleShowMessenger}
       onMouseLeave={toggleShowMessenger}
+      onClick={() => {
+        navigate(`/profile/${friendData._id}`);
+      }}
     >
       <img src={avatarPicture} alt="Avatar" />
       <div>

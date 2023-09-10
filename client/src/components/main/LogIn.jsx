@@ -9,21 +9,22 @@ const LogIn = ({ token, setToken }) => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
+  const checkToken = async () => {
+    const res = await fetch(`${import.meta.env.VITE_SERVER}/api`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (res.ok) {
+      return navigate('/');
+    }
+  };
+
   useEffect(() => {
     if (!token) {
       return;
     }
-    const checkToken = async () => {
-      const res = await fetch(`${import.meta.env.VITE_SERVER}/api`, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      if (res.ok) {
-        return navigate('/');
-      }
-    };
     checkToken();
   }, []);
 
@@ -60,6 +61,7 @@ const LogIn = ({ token, setToken }) => {
       const data = await res.json();
       setErr('');
       setToken(data.token);
+      navigate('/');
     } catch (err) {
       console.error('Error:', err);
     }
@@ -84,7 +86,8 @@ const LogIn = ({ token, setToken }) => {
       }
       const data = await res.json();
       setErr('');
-      return setToken(data.token);
+      setToken(data.token);
+      navigate('/');
     } catch (err) {
       console.error('Error:', err);
     }

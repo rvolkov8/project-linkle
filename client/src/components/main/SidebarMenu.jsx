@@ -1,9 +1,41 @@
 import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
-const SidebarMenu = ({ currentPage, setCurrentPage }) => {
+const SidebarMenu = ({ userData }) => {
+  const [currentPage, setCurrentPage] = useState('');
+
+  useEffect(() => {
+    const handleCurrentUrlChange = () => {
+      const currentURL = localStorage.getItem('currentURL');
+
+      if (currentURL === '/' && currentPage !== 'home') {
+        return setCurrentPage('home');
+      } else if (
+        currentURL.split('/')[1] === 'profile' &&
+        currentURL.split('/')[2] === userData._id &&
+        currentPage !== 'profile'
+      ) {
+        return setCurrentPage('profile');
+      } else if (
+        currentURL.split('/')[1] === 'profile' &&
+        currentURL.split('/')[2] !== userData._id
+      ) {
+        return setCurrentPage('');
+      }
+    };
+
+    window.addEventListener('storage', handleCurrentUrlChange);
+    handleCurrentUrlChange();
+    return () => {
+      window.removeEventListener('storage', handleCurrentUrlChange);
+    };
+  }, [userData._id]);
+
   return (
     <div className="sidebar-menu">
-      <div
+      <Link
+        to={`/profile/${userData._id}`}
         className={`option ${currentPage === 'profile' ? 'active' : ''}`}
         onClick={() => {
           setCurrentPage('profile');
@@ -13,8 +45,9 @@ const SidebarMenu = ({ currentPage, setCurrentPage }) => {
           <title>profile</title>
           <path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,6A2,2 0 0,0 10,8A2,2 0 0,0 12,10A2,2 0 0,0 14,8A2,2 0 0,0 12,6M12,13C14.67,13 20,14.33 20,17V20H4V17C4,14.33 9.33,13 12,13M12,14.9C9.03,14.9 5.9,16.36 5.9,17V18.1H18.1V17C18.1,16.36 14.97,14.9 12,14.9Z" />
         </svg>
-      </div>
-      <div
+      </Link>
+      <Link
+        to={'/'}
         className={`option ${currentPage === 'home' ? 'active' : ''}`}
         onClick={() => {
           setCurrentPage('home');
@@ -24,7 +57,7 @@ const SidebarMenu = ({ currentPage, setCurrentPage }) => {
           <title>home</title>
           <path d="M12 5.69L17 10.19V18H15V12H9V18H7V10.19L12 5.69M12 3L2 12H5V20H11V14H13V20H19V12H22" />
         </svg>
-      </div>
+      </Link>
       <div
         className={`option ${currentPage === 'friends' ? 'active' : ''}`}
         onClick={() => {
@@ -41,8 +74,7 @@ const SidebarMenu = ({ currentPage, setCurrentPage }) => {
 };
 
 SidebarMenu.propTypes = {
-  currentPage: PropTypes.string,
-  setCurrentPage: PropTypes.func,
+  userData: PropTypes.object,
 };
 
 export default SidebarMenu;

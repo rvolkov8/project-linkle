@@ -64,6 +64,7 @@ header {
   display: flex;
   align-items: center;
   gap: 10px;
+  cursor: pointer;
 }
 
 .user-header .user-info > img {
@@ -77,6 +78,11 @@ header {
 
 .user-header h2 {
   font-weight: 700;
+  cursor: inherit;
+}
+
+.user-header .user-info:hover h2 {
+  text-decoration: underline;
 }
 
 .user-header .divider {

@@ -1,17 +1,18 @@
 import { useEffect, useState } from 'react';
 import Main from './components/main/Main';
 import Header from './components/header/Header';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const App = () => {
   const [token, setToken] = useState(localStorage.getItem('token') || '');
   const navigate = useNavigate();
+  const location = useLocation();
   const [userData, setUserData] = useState({});
   const [err, setErr] = useState('');
   const [isOnline, setIsOnline] = useState(window.navigator.onLine);
 
   const handleNewErr = (err) => {
-    setErr(err.toString());
+    setErr(err);
     setTimeout(() => {
       setErr('');
     }, 4000);
@@ -19,16 +20,11 @@ const App = () => {
 
   const updateUserData = async () => {
     try {
-      const res = await fetch(
-        `${
-          import.meta.env.VITE_SERVER
-        }/api/user/me?fields=_id,firstName,lastName,avatarFileName,friends`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const res = await fetch(`${import.meta.env.VITE_SERVER}/api/user/me`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (!res.ok) {
         const err = res.statusText;
@@ -41,6 +37,20 @@ const App = () => {
       console.error('Error when trying to update user data:', err);
     }
   };
+
+  // Store the current URL in localStorage when the URL changes
+  useEffect(() => {
+    localStorage.setItem('currentURL', location.pathname);
+    window.dispatchEvent(new Event('storage'));
+  }, [location.pathname]);
+
+  // When the page is reloaded, navigate to the stored URL
+  useEffect(() => {
+    const storedURL = localStorage.getItem('currentURL');
+    if (storedURL) {
+      navigate(storedURL);
+    }
+  }, [navigate]);
 
   // Sets token in the localStorage if it changes in the state
   useEffect(() => {
@@ -60,8 +70,6 @@ const App = () => {
       if (!res.ok) {
         const err = res.statusText;
         throw new Error(err);
-      } else {
-        navigate('/');
       }
     } catch (err) {
       console.error('Error when trying to check token:', err);
@@ -145,6 +153,7 @@ const App = () => {
         userData={userData}
         err={err}
         handleNewErr={handleNewErr}
+        updateUserData={updateUserData}
       />
     </>
   );

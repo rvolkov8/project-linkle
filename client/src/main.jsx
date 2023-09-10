@@ -14,11 +14,14 @@ import './styles/main/comment.css';
 import './styles/main/allComments.css';
 import './styles/main/friend.css';
 import './styles/main/sharePost.css';
+import './styles/main/profile.css';
+import './styles/main/intro.css';
+import './styles/main/profilePreview.css';
+import './styles/main/editProfile.css';
 
 // Set photos and names as links
-// Online / offline implementation
 
-// Type of err from app.jsx
+// Special signs when uploading to server
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <BrowserRouter>

@@ -59,7 +59,6 @@ const Header = ({ userData, token }) => {
     if (data.length === 0) {
       return setNoResults(true);
     }
-
     setErr('');
     setNoResults(false);
     setSearchResultsData(data);
@@ -73,8 +72,10 @@ const Header = ({ userData, token }) => {
 
   if (userLogged) {
     return (
-      <header className="user-header" onClick={() => navigate('/')}>
-        <h1 className="logo">Linkle</h1>
+      <header className="user-header">
+        <h1 className="logo" onClick={() => navigate('/')}>
+          Linkle
+        </h1>
         <div className="search">
           <input
             type="text"
@@ -87,11 +88,17 @@ const Header = ({ userData, token }) => {
               searchResultsData={searchResultsData}
               err={err}
               noResults={noResults}
+              setSearchInput={setSearchInput}
             />
           )}
         </div>
         <div>
-          <div className="user-info">
+          <div
+            className="user-info"
+            onClick={() => {
+              navigate(`/profile/${userData._id}`);
+            }}
+          >
             <img src={userAvatar} alt="Avatar" />
             {userData.firstName ? <h2>{userFullName}</h2> : <h2>Loading...</h2>}
           </div>
