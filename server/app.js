@@ -9,6 +9,8 @@ const corsOptions = {
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
 };
+const compression = require('compression');
+const helmet = require('helmet');
 
 // MongoDB connection
 require('./configs/mongodbConfig');
@@ -17,6 +19,17 @@ const authRouter = require('./routes/auth');
 const apiRouter = require('./routes/api');
 
 const app = express();
+
+app.use(helmet());
+app.use(compression());
+
+const RateLimit = require('express-rate-limit');
+const limiter = RateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 500,
+});
+// Apply rate limiter to all requests
+app.use(limiter);
 
 app.use(logger('dev'));
 app.use(express.json());
