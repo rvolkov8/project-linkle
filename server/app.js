@@ -19,6 +19,7 @@ const authRouter = require('./routes/auth');
 const apiRouter = require('./routes/api');
 
 const app = express();
+app.set('trust proxy', true);
 
 app.use(helmet());
 app.use(compression());
