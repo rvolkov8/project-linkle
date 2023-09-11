@@ -5,6 +5,8 @@ import SignUp from './SignUp';
 import Home from './Home';
 import SidebarMenu from './SidebarMenu';
 import Profile from './Profile';
+import Friends from './Friends';
+import FriendsRequests from './FriendRequests';
 
 const Main = ({
   token,
@@ -38,6 +40,29 @@ const Main = ({
           path="/profile/:id"
           element={
             <Profile
+              token={token}
+              userData={userData}
+              err={err}
+              handleNewErr={handleNewErr}
+              updateUserData={updateUserData}
+            />
+          }
+        />
+        <Route
+          path="/profile/:id/friends"
+          element={
+            <Friends
+              token={token}
+              userData={userData}
+              err={err}
+              handleNewErr={handleNewErr}
+            />
+          }
+        />
+        <Route
+          path="/profile/:id/friend-requests"
+          element={
+            <FriendsRequests
               token={token}
               userData={userData}
               err={err}

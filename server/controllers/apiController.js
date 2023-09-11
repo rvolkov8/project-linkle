@@ -35,6 +35,14 @@ exports.getCurrentUser = async (req, res) => {
           },
         },
       })
+      .populate({
+        path: 'friendRequests',
+        populate: {
+          path: 'user',
+          model: 'User',
+          select: 'fullName avatarFileName',
+        },
+      })
       .exec();
 
     userData.posts.sort((a, b) => b.createdAt - a.createdAt);
@@ -62,6 +70,7 @@ exports.getCurrentUser = async (req, res) => {
 exports.getUser = async (req, res) => {
   try {
     const { id } = req.params;
+    const requestedFields = req.query.fields;
 
     const userData = await User.findById({ _id: id })
       .select('-password -username')
@@ -109,6 +118,17 @@ exports.getUser = async (req, res) => {
       .exec();
 
     userData.posts.sort((a, b) => b.createdAt - a.createdAt);
+
+    if (requestedFields) {
+      const requestedFieldsArr = requestedFields.split(',');
+      const filteredUser = requestedFieldsArr.reduce((obj, field) => {
+        if (userData[field] !== undefined) {
+          obj[field] = userData[field];
+        }
+        return obj;
+      }, {});
+      return res.status(200).json(filteredUser);
+    }
 
     res.status(200).json(userData);
   } catch (err) {
@@ -161,7 +181,6 @@ exports.patchRemoveFriend = async (req, res) => {
     const updatedUserFriends = currentUser.friends.filter(
       (friend) => !friend.equals(friendId)
     );
-    console.log(updatedUserFriends);
     currentUser.friends = updatedUserFriends;
     await currentUser.save();
 
@@ -190,7 +209,7 @@ exports.patchSendFriendRequest = async (req, res) => {
     const currentUserId = decodedToken.id;
 
     const user = await User.findOne({ _id: id }).exec();
-    user.friendRequests.push(currentUserId);
+    user.friendRequests.push({ user: currentUserId });
     await user.save();
 
     res.sendStatus(204);
@@ -211,13 +230,64 @@ exports.patchCancelFriendRequest = async (req, res) => {
     const currentUserId = decodedToken.id;
 
     const user = await User.findOne({ _id: id }).exec();
-    console.log(user.friendRequests);
     const updatedFriendRequests = user.friendRequests.filter(
-      (request) => !request.equals(currentUserId)
+      (request) => !request.user.equals(currentUserId)
     );
-    console.log(updatedFriendRequests);
     user.friendRequests = updatedFriendRequests;
     await user.save();
+
+    res.sendStatus(204);
+  } catch (err) {
+    res
+      .status(500)
+      .json({ msg: 'Internal server error. Please, try again later.' });
+    console.log('Error when trying to remove friend: ', err);
+  }
+};
+
+exports.patchConfirmFriendRequest = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const token = req.headers.authorization.replace('Bearer ', '');
+    const decodedToken = jwt.decode(token);
+    const currentUserId = decodedToken.id;
+
+    const currentUser = await User.findOne({ _id: currentUserId }).exec();
+    const updatedFriendRequests = currentUser.friendRequests.filter(
+      (request) => !request.user.equals(id)
+    );
+    currentUser.friendRequests = updatedFriendRequests;
+    currentUser.friends.push(id);
+    await currentUser.save();
+
+    const friend = await User.findOne({ _id: id }).exec();
+    friend.friends.push(currentUserId);
+    await friend.save();
+
+    res.sendStatus(204);
+  } catch (err) {
+    res
+      .status(500)
+      .json({ msg: 'Internal server error. Please, try again later.' });
+    console.log('Error when trying to remove friend: ', err);
+  }
+};
+
+exports.patchRemoveFriendRequest = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const token = req.headers.authorization.replace('Bearer ', '');
+    const decodedToken = jwt.decode(token);
+    const currentUserId = decodedToken.id;
+
+    const currentUser = await User.findOne({ _id: currentUserId }).exec();
+    const updatedFriendRequests = currentUser.friendRequests.filter(
+      (request) => !request.user.equals(id)
+    );
+    currentUser.friendRequests = updatedFriendRequests;
+    await currentUser.save();
 
     res.sendStatus(204);
   } catch (err) {
@@ -389,7 +459,6 @@ exports.getFeedPosts = async (req, res) => {
       (a, b) => b.createdAt - a.createdAt
     );
 
-    console.log(sortedFriendsPosts);
     res.status(200).json(sortedFriendsPosts);
   } catch (err) {
     res
@@ -468,7 +537,6 @@ exports.getSearchResults = async (req, res) => {
 exports.patchLikePost = async (req, res) => {
   try {
     const postId = req.params.id;
-    console.log(postId);
 
     const token = req.headers.authorization.replace('Bearer ', '');
     const decodedToken = jwt.decode(token);

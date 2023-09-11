@@ -97,6 +97,7 @@
 .right-column > .friends > .container > div {
   overflow: scroll;
   height: calc(100vh - 156px - 30px);
+  padding: 5px;
   border-radius: 20px 0 0 20px;
 }
 

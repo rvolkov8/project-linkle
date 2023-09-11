@@ -94,7 +94,8 @@
 
 .middle-column .profile-header > div > div > .buttons button.message,
 .middle-column .profile-header > div > div > .buttons button.add-friend,
-.middle-column .profile-header > div > div > .buttons button.cancel-request {
+.middle-column .profile-header > div > div > .buttons button.cancel-request,
+.middle-column .profile-header > div > div > .buttons button.confirm-request {
   background-color: var(--blue);
   color: var(--white);
 }
@@ -110,7 +111,13 @@
   > div
   > div
   > .buttons
-  button.cancel-request:hover {
+  button.cancel-request:hover,
+.middle-column
+  .profile-header
+  > div
+  > div
+  > .buttons
+  button.confirm-request:hover {
   background-color: var(--blue-pressed);
 }
 

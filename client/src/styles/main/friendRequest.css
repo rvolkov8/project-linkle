@@ -1,0 +1,79 @@
+.friend-request {
+  display: grid;
+  grid-template-columns: 50px 1fr;
+  align-items: center;
+  gap: 20px;
+  background-color: var(--white);
+  padding: 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-bottom: 15px;
+  animation: fadein 0.8s;
+}
+
+.friend-request:hover {
+  box-shadow: var(--strong-hover-shadow);
+}
+
+.friend-request > img {
+  height: 60px;
+  width: 60px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 12px;
+}
+
+.friend-request > div {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.friend-request > div > div:nth-child(1) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.friend-request h3 {
+  font-weight: 700;
+  cursor: inherit;
+}
+
+.friend-request p {
+  color: var(--text);
+  font-weight: 300;
+  font-size: 0.8rem;
+}
+
+.friend-request > div > .buttons {
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.friend-request > div > .buttons > button {
+  padding: 8px 0;
+  font-size: 0.8rem;
+  border: none;
+  border-radius: 9px;
+  background-color: var(--gray);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.friend-request > div > .buttons > button:first-child {
+  background-color: var(--blue);
+  color: var(--white);
+}
+
+.friend-request > div > .buttons > button:hover {
+  background-color: var(--pressed-gray);
+}
+
+.friend-request > div > .buttons > button:first-child:hover {
+  background-color: var(--blue-pressed);
+}

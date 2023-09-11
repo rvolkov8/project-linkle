@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router';
 
-const FriendsPreview = ({ friendsData }) => {
+const FriendsPreview = ({ friendsData, profileId }) => {
   const navigate = useNavigate();
   const limitedFriendsData = friendsData.slice(0, 9);
   const friendsElements = limitedFriendsData.map((friendData) => {
@@ -31,7 +31,13 @@ const FriendsPreview = ({ friendsData }) => {
       <div className="content">
         <div>
           <p>{friendsQuantityText}</p>
-          <button>See all friends</button>
+          <button
+            onClick={() => {
+              navigate(`/profile/${profileId}/friends`);
+            }}
+          >
+            See all friends
+          </button>
         </div>
         {friendsElements}
       </div>
@@ -41,6 +47,7 @@ const FriendsPreview = ({ friendsData }) => {
 
 FriendsPreview.propTypes = {
   friendsData: PropTypes.array,
+  profileId: PropTypes.string,
 };
 
 export default FriendsPreview;

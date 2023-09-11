@@ -230,8 +230,11 @@ const Profile = ({ token, userData, err, handleNewErr, updateUserData }) => {
   const isFriend = userData.friends?.some(
     (friend) => friend._id === profileData._id
   );
-  const sentRequest = profileData.friendRequests?.some(
-    (request) => request === userData._id
+  const receivedFriendRequest = profileData.friendRequests?.some(
+    (request) => request.user === userData._id
+  );
+  const sentFriendRequest = userData.friendRequests?.some(
+    (request) => request.user?._id === profileData._id
   );
 
   if (isCurrentUser) {
@@ -276,7 +279,7 @@ const Profile = ({ token, userData, err, handleNewErr, updateUserData }) => {
     );
   }
 
-  if (!isCurrentUser && !isFriend && !sentRequest) {
+  if (!isCurrentUser && !isFriend && !receivedFriendRequest) {
     profileHeaderButtons = (
       <div className="buttons">
         <button className="cancel-request" onClick={handleSendFriendRequest}>
@@ -290,7 +293,7 @@ const Profile = ({ token, userData, err, handleNewErr, updateUserData }) => {
     );
   }
 
-  if (!isCurrentUser && !isFriend && sentRequest) {
+  if (!isCurrentUser && !isFriend && receivedFriendRequest) {
     profileHeaderButtons = (
       <div className="buttons">
         <button className="add-friend" onClick={handleCancelFriendRequest}>
@@ -300,6 +303,15 @@ const Profile = ({ token, userData, err, handleNewErr, updateUserData }) => {
           </svg>
           Cancel request
         </button>
+      </div>
+    );
+  }
+
+  if (!isCurrentUser && !isFriend && sentFriendRequest) {
+    profileHeaderButtons = (
+      <div className="buttons">
+        <button className="confirm-request">Confirm</button>
+        <button className="remove-request">Remove</button>
       </div>
     );
   }
@@ -330,7 +342,10 @@ const Profile = ({ token, userData, err, handleNewErr, updateUserData }) => {
           <div className="left-content-column">
             <Intro profileData={profileData} />
             {profileData.friends?.length > 0 && (
-              <FriendsPreview friendsData={profileData.friends} />
+              <FriendsPreview
+                friendsData={profileData.friends}
+                profileId={profileData._id}
+              />
             )}
           </div>
           <div className="right-content-column">

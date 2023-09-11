@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const friendRequestSchema = new Schema({
+  user: { type: Schema.Types.ObjectId, ref: 'User' },
+  createdAt: { type: Date, default: Date.now() },
+});
+
 const userSchema = new Schema({
   username: { type: String, required: true },
   password: { type: String, required: true },
@@ -12,7 +17,7 @@ const userSchema = new Schema({
   currentCity: { type: String, default: null },
   homeTown: { type: String, default: null },
   education: [{ type: String }],
-  friendRequests: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+  friendRequests: [friendRequestSchema],
   friends: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   posts: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
   isOnline: { type: Boolean, default: false },

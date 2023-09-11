@@ -18,10 +18,9 @@ import './styles/main/profile.css';
 import './styles/main/intro.css';
 import './styles/main/profilePreview.css';
 import './styles/main/editProfile.css';
-
-// Set photos and names as links
-
-// Special signs when uploading to server
+import './styles/main/friends.css';
+import './styles/main/friendRequests.css';
+import './styles/main/friendRequest.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <BrowserRouter>

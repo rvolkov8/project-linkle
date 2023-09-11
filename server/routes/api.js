@@ -64,6 +64,18 @@ router.patch(
   apiController.patchUserOffline
 );
 
+router.patch(
+  '/user/me/friend-request/:id/confirm',
+  passport.authenticate('jwt', { session: false }),
+  apiController.patchConfirmFriendRequest
+);
+
+router.patch(
+  '/user/me/friend-request/:id/remove',
+  passport.authenticate('jwt', { session: false }),
+  apiController.patchRemoveFriendRequest
+);
+
 router.get(
   '/user/:id',
   passport.authenticate('jwt', { session: false }),

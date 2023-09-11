@@ -124,7 +124,13 @@ const Home = ({ token, userData, err, handleNewErr }) => {
 
   const updateFriendsElements = () => {
     const elements = friendsData.map((friend) => {
-      return <Friend key={friend._id} friendData={friend} />;
+      return (
+        <Friend
+          key={friend._id}
+          friendData={friend}
+          handleNewErr={handleNewErr}
+        />
+      );
     });
     setFriendsElements(elements);
   };

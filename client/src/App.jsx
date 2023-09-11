@@ -146,7 +146,7 @@ const App = () => {
 
   return (
     <>
-      <Header userData={userData} token={token} />
+      <Header userData={userData} token={token} handleNewErr={handleNewErr} />
       <Main
         token={token}
         setToken={setToken}
