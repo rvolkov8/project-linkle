@@ -34,7 +34,7 @@ const FriendRequest = ({
       return `${monthsAgo} m ago`;
     } else {
       const yearsAgo = Math.floor(timeDifferenceInSec / 29030400);
-      return yearsAgo === 1 ? `${yearsAgo} year ago` : `${yearsAgo} years ago`;
+      return `${yearsAgo} y ago`;
     }
   };
 
@@ -90,7 +90,7 @@ const FriendRequest = ({
     }
   };
 
-  const avatarPicture = friendRequestData.user.avatarFileName
+  const avatarPicture = friendRequestData.user?.avatarFileName
     ? `${import.meta.env.VITE_SERVER}/images/avatars/${
         friendRequestData.user.avatarFileName
       }`
@@ -100,13 +100,13 @@ const FriendRequest = ({
     <div
       className="friend-request"
       onClick={() => {
-        navigate(`/profile/${friendRequestData.user._id}`);
+        navigate(`/profile/${friendRequestData.user?._id}`);
       }}
     >
       <img src={avatarPicture} alt="Avatar" />
       <div>
         <div className="info">
-          <h3>{friendRequestData.user.fullName}</h3>
+          <h3>{friendRequestData.user?.fullName}</h3>
           <p>{formatDate(friendRequestData.createdAt)}</p>
         </div>
         <div className="buttons">
