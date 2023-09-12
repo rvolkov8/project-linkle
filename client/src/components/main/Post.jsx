@@ -27,37 +27,14 @@ const Post = ({
     postData.sharesPost?.body?.length < 250 ? true : false
   );
 
-  const authorAvatarPicture = postData.author.avatarFileName
-    ? `${import.meta.env.VITE_SERVER}/images/avatars/${
-        postData.author.avatarFileName
-      }`
-    : `${import.meta.env.VITE_SERVER}/images/avatars/avatar.jpg`;
-
   const authorFullName = postData.author.fullName;
-
-  const postPicture = postData.picture ? (
-    <img
-      src={`${import.meta.env.VITE_SERVER}/images/posts/${postData.picture}`}
-      alt="Post picture"
-    />
-  ) : null;
 
   // Shared post
   const sharedPostData = postData.sharesPost ? postData.sharesPost : null;
-  const sharedPostPicture =
-    sharedPostData && sharedPostData.picture
-      ? `${import.meta.env.VITE_SERVER}/images/posts/${sharedPostData.picture}`
+  const sharedPostPictureUrl =
+    sharedPostData && sharedPostData.pictureUrl
+      ? sharedPostData.pictureUrl
       : null;
-  const sharedPostAuthorAvatarPicture =
-    sharedPostData && sharedPostData.author.avatarFileName
-      ? `${import.meta.env.VITE_SERVER}/images/avatars/${
-          sharedPostData.author.avatarFileName
-        }`
-      : `${import.meta.env.VITE_SERVER}/images/avatars/avatar.jpg`;
-
-  const userAvatarPicture = userData.avatarFileName
-    ? `${import.meta.env.VITE_SERVER}/images/avatars/${userData.avatarFileName}`
-    : `${import.meta.env.VITE_SERVER}/images/avatars/avatar.jpg`;
 
   const postLikedBy = postData.likedBy;
   const postComments = postData.comments;
@@ -237,7 +214,7 @@ const Post = ({
     <div className="post">
       {showAllComments && (
         <AllComments
-          userAvatarPicture={userAvatarPicture}
+          userAvatarUrl={userData.avatarUrl}
           handleCommentChange={handleCommentChange}
           commentText={commentText}
           handleCommentUpload={handleCommentUpload}
@@ -251,8 +228,8 @@ const Post = ({
         <SharePost
           userData={userData}
           toggleSharePostAppearance={toggleSharePostAppearance}
-          sharedPostPicture={postPicture}
-          sharedPostAuthorAvatarPicture={authorAvatarPicture}
+          sharedPostPictureUrl={postData.pictureUrl}
+          sharedPostAuthorAvatarUrl={postData.author.avatarUrl}
           sharedPostAuthorFullName={authorFullName}
           sharedPostCreatedAt={formatDate(postData.createdAt)}
           sharedPostBody={postData.body}
@@ -263,7 +240,7 @@ const Post = ({
       )}
       <div className="user">
         <img
-          src={authorAvatarPicture}
+          src={postData.author.avatarUrl}
           alt="Profile picture"
           onClick={() => {
             navigate(`/profile/${postData.author._id}`);
@@ -295,12 +272,12 @@ const Post = ({
       ) : null}
       {sharedPostData && (
         <div className="shared-post">
-          {sharedPostPicture && (
-            <img src={sharedPostPicture} alt="Post picture" />
+          {sharedPostPictureUrl && (
+            <img src={sharedPostPictureUrl} alt="Post picture" />
           )}
           <div className="author">
             <img
-              src={sharedPostAuthorAvatarPicture}
+              src={sharedPostData.author.avatarUrl}
               alt="Profile picture"
               onClick={() => {
                 navigate(`/profile/${sharedPostData.author._id}`);
@@ -334,7 +311,9 @@ const Post = ({
           ) : null}
         </div>
       )}
-      {postPicture && postPicture}
+      {postData.pictureUrl && (
+        <img src={postData.pictureUrl} alt="Post picture" />
+      )}
       <div className="statistics">
         {formatLikesText() && (
           <div>
@@ -417,7 +396,7 @@ const Post = ({
         </button>
       </div>
       <form>
-        <img src={userAvatarPicture} alt="Avatar" />
+        <img src={userData.avatarUrl} alt="Avatar" />
         <input
           ref={inputRef}
           type="text"

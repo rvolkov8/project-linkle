@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useEffect, useRef } from 'react';
 
 const AllComments = ({
-  userAvatarPicture,
+  userAvatarUrl,
   handleCommentChange,
   commentText,
   handleCommentUpload,
@@ -31,7 +31,7 @@ const AllComments = ({
           {postCommentsElements && postCommentsElements}
         </div>
         <form>
-          <img src={userAvatarPicture} alt="Avatar" />
+          <img src={userAvatarUrl} alt="Avatar" />
           <input
             ref={inputRef}
             type="text"
@@ -52,7 +52,7 @@ const AllComments = ({
 };
 
 AllComments.propTypes = {
-  userAvatarPicture: PropTypes.string,
+  userAvatarUrl: PropTypes.string,
   handleCommentChange: PropTypes.func,
   commentText: PropTypes.string,
   handleCommentUpload: PropTypes.func,

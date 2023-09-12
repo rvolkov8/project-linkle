@@ -209,12 +209,6 @@ const Profile = ({ token, userData, err, handleNewErr, updateUserData }) => {
     setLoadingFeedPosts(false);
   }, [feedPostsData]);
 
-  const profileAvatarPicture = profileData?.avatarFileName
-    ? `${import.meta.env.VITE_SERVER}/images/avatars/${
-        profileData.avatarFileName
-      }`
-    : `${import.meta.env.VITE_SERVER}/images/avatars/avatar.jpg`;
-
   const profileFullName = profileData.fullName;
 
   const profileFriendsText =
@@ -329,7 +323,7 @@ const Profile = ({ token, userData, err, handleNewErr, updateUserData }) => {
           />
         ) : null}
         <div className="profile-header">
-          <img src={profileAvatarPicture} alt="Avatar" />
+          {profileData && <img src={profileData.avatarUrl} alt="Avatar" />}
           <div>
             <h1>{profileFullName}</h1>
             <div>

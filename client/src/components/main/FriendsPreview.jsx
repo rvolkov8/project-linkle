@@ -5,18 +5,13 @@ const FriendsPreview = ({ friendsData, profileId }) => {
   const navigate = useNavigate();
   const limitedFriendsData = friendsData.slice(0, 9);
   const friendsElements = limitedFriendsData.map((friendData) => {
-    const friendAvatar = friendData.avatarFileName
-      ? `${import.meta.env.VITE_SERVER}/images/avatars/${
-          friendData.avatarFileName
-        }`
-      : `${import.meta.env.VITE_SERVER}/images/avatars/avatar.jpg`;
     return (
       <div
         key={friendData._id}
         className="friend-preview"
         onClick={() => navigate(`/profile/${friendData._id}`)}
       >
-        <img src={friendAvatar} alt="Friend avatar" />
+        <img src={friendData.avatarUrl} alt="Friend avatar" />
         <h3>{friendData.fullName}</h3>
       </div>
     );

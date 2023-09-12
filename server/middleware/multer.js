@@ -1,24 +1,34 @@
 const multer = require('multer');
 const path = require('path');
+const multerGoogleStorage = require('multer-google-storage');
 
-const avatarStorage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'public/images/avatars');
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname));
-  },
+const uploadPostImage = multer({
+  storage: multerGoogleStorage.storageEngine({
+    autoRetry: true,
+    bucket: 'linkle-images',
+    projectId: 'linkle-398815',
+    keyFilename: path.join(__dirname, '../linkle-398815-311fa9e8aea6.json'),
+    // keyFilename: '/etc/secrets/linkle-398815-311fa9e8aea6.json',
+    filename: (req, file, cb) => {
+      cb(null, `posts/${Date.now()}`);
+    },
+  }),
 });
-const uploadAvatar = multer({ storage: avatarStorage });
 
-const postStorage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'public/images/posts');
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname));
-  },
+const uploadAvatar = multer({
+  storage: multerGoogleStorage.storageEngine({
+    autoRetry: true,
+    bucket: 'linkle-images',
+    projectId: 'linkle-398815',
+    keyFilename: path.join(__dirname, '../linkle-398815-311fa9e8aea6.json'),
+    // keyFilename: '/etc/secrets/linkle-398815-311fa9e8aea6.json',
+    filename: (req, file, cb) => {
+      cb(null, `avatars/${Date.now()}`);
+    },
+  }),
 });
-const uploadPost = multer({ storage: postStorage });
 
-module.exports = { uploadAvatar: uploadAvatar, uploadPost: uploadPost };
+module.exports = {
+  uploadPostImage: uploadPostImage,
+  uploadAvatar: uploadAvatar,
+};

@@ -165,11 +165,8 @@ const Home = ({ token, userData, err, handleNewErr }) => {
     updateFriendsElements();
   }, [friendsData]);
 
-  useEffect(() => {}, [friendsData]);
-
   return (
     <>
-      {/* <div className="left-column">{sideBarMenuElement}</div> */}
       <div className="middle-column">
         {err && <p className="err">{err}</p>}
         <NewPost

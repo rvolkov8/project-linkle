@@ -52,7 +52,9 @@ exports.postSignUp = async (req, res) => {
       lastName: lastName,
     });
     if (req.file) {
-      user.avatarFileName = req.file.filename;
+      user.avatarUrl = `https://storage.cloud.google.com/linkle-images/${req.file.filename}`;
+    } else {
+      user.avatarUrl = `https://storage.cloud.google.com/linkle-images/avatars/default_avatar.jpg`;
     }
     if (currentCity) {
       user.currentCity = currentCity;

@@ -39,8 +39,8 @@
 }
 
 .middle-column .profile-header > img {
-  width: 105px;
-  height: 105px;
+  min-width: 110px;
+  height: 110px;
   border-radius: 12px;
   border: 2px solid var(--blue);
 }

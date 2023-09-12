@@ -90,11 +90,8 @@ const FriendRequest = ({
     }
   };
 
-  const avatarPicture = friendRequestData.user?.avatarFileName
-    ? `${import.meta.env.VITE_SERVER}/images/avatars/${
-        friendRequestData.user.avatarFileName
-      }`
-    : `${import.meta.env.VITE_SERVER}/images/avatars/avatar.jpg`;
+  const avatarPicture =
+    friendRequestData.user && friendRequestData.user.avatarUrl;
 
   return (
     <div

@@ -316,7 +316,7 @@ exports.postUploadPost = async (req, res) => {
       body: postBody,
     });
     if (req.file) {
-      post.picture = req.file.filename;
+      post.pictureUrl = `https://storage.cloud.google.com/linkle-images/${req.file.filename}`;
     }
     await post.save();
 

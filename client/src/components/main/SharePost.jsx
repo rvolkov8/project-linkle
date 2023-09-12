@@ -4,8 +4,8 @@ import { useEffect, useRef, useState } from 'react';
 const SharePost = ({
   userData,
   toggleSharePostAppearance,
-  sharedPostPicture,
-  sharedPostAuthorAvatarPicture,
+  sharedPostPictureUrl,
+  sharedPostAuthorAvatarUrl,
   sharedPostAuthorFullName,
   sharedPostCreatedAt,
   sharedPostBody,
@@ -84,9 +84,11 @@ const SharePost = ({
             ></textarea>
           </form>
           <div className="shared-post">
-            {sharedPostPicture && sharedPostPicture}
+            {sharedPostPictureUrl && (
+              <img src={sharedPostPictureUrl} alt="Shared post picture" />
+            )}
             <div className="author">
-              <img src={sharedPostAuthorAvatarPicture} alt="Profile picture" />
+              <img src={sharedPostAuthorAvatarUrl} alt="Profile picture" />
               <div>
                 <h2>{sharedPostAuthorFullName}</h2>
                 <h3>{sharedPostCreatedAt}</h3>
@@ -104,8 +106,8 @@ const SharePost = ({
 SharePost.propTypes = {
   userData: PropTypes.object,
   toggleSharePostAppearance: PropTypes.func,
-  sharedPostPicture: PropTypes.object,
-  sharedPostAuthorAvatarPicture: PropTypes.string,
+  sharedPostPictureUrl: PropTypes.object,
+  sharedPostAuthorAvatarUrl: PropTypes.string,
   sharedPostAuthorFullName: PropTypes.string,
   sharedPostCreatedAt: PropTypes.string,
   sharedPostBody: PropTypes.string,

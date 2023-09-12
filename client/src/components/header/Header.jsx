@@ -16,10 +16,6 @@ const Header = ({ userData, token, handleNewErr }) => {
   const [noResults, setNoResults] = useState(false);
   const [err, setErr] = useState('');
 
-  const userAvatar = userData.avatarFileName
-    ? `${import.meta.env.VITE_SERVER}/images/avatars/${userData.avatarFileName}`
-    : `${import.meta.env.VITE_SERVER}/images/avatars/avatar.jpg`;
-
   const userFullName = `${userData.firstName} ${userData.lastName}`;
 
   useEffect(() => {
@@ -99,7 +95,7 @@ const Header = ({ userData, token, handleNewErr }) => {
               navigate(`/profile/${userData._id}`);
             }}
           >
-            <img src={userAvatar} alt="Avatar" />
+            <img src={userData.avatarUrl} alt="Avatar" />
             {userData.firstName ? <h2>{userFullName}</h2> : <h2>Loading...</h2>}
           </div>
           <div className="divider"></div>

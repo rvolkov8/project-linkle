@@ -4,12 +4,6 @@ import { useNavigate } from 'react-router';
 const Comment = ({ commentData, userData, formatDate }) => {
   const navigate = useNavigate();
 
-  const avatarPicture = commentData.author.avatarFileName
-    ? `${import.meta.env.VITE_SERVER}/images/avatars/${
-        commentData.author.avatarFileName
-      }`
-    : `${import.meta.env.VITE_SERVER}/images/avatars/avatar.jpg`;
-
   const authorFullName = commentData.author.fullName;
 
   const isFriend = userData.friends.some((friend) => {
@@ -21,7 +15,7 @@ const Comment = ({ commentData, userData, formatDate }) => {
   return (
     <div className="comment">
       <img
-        src={avatarPicture}
+        src={commentData.author.avatarUrl}
         alt="Avatar"
         onClick={() => {
           navigate(`/profile/${commentData.author._id}`);

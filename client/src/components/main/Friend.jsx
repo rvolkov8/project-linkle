@@ -6,14 +6,7 @@ const Friend = ({ friendData, handleNewErr }) => {
   const navigate = useNavigate();
   const [showMessenger, setShowMessenger] = useState(false);
 
-  const avatarPicture = friendData.avatarFileName
-    ? `${import.meta.env.VITE_SERVER}/images/avatars/${
-        friendData.avatarFileName
-      }`
-    : `${import.meta.env.VITE_SERVER}/images/avatars/avatar.jpg`;
-
   const fullName = `${friendData.firstName} ${friendData.lastName}`;
-
   const isOnline = friendData.isOnline;
   const isFriendsPage = localStorage.getItem('currentURL').includes('friends');
 
@@ -63,7 +56,7 @@ const Friend = ({ friendData, handleNewErr }) => {
         navigate(`/profile/${friendData._id}`);
       }}
     >
-      <img src={avatarPicture} alt="Avatar" />
+      <img src={friendData.avatarUrl} alt="Avatar" />
       <div>
         <h3>{fullName}</h3>
         <div>

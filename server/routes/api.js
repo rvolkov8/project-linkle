@@ -96,7 +96,7 @@ router.patch(
 
 router.post(
   '/post/upload',
-  multer.uploadPost.single('picture'),
+  multer.uploadPostImage.single('picture'),
   body('body')
     .trim()
     .notEmpty()
