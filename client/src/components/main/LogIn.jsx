@@ -56,10 +56,10 @@ const LogIn = ({ token, setToken }) => {
         body: JSON.stringify(userInput),
       });
       if (!res.ok) {
-        return setErr(res.statusText);
+        const { msg } = await res.json();
+        return setErr(msg);
       }
       const data = await res.json();
-      setErr('');
       setToken(data.token);
       navigate('/');
     } catch (err) {
