@@ -6,6 +6,13 @@ Linkle Social Network is a robust web application that allows users to connect w
 
 In today's digital age, social networking has become an integral part of our lives. Linkle aims to provide a reliable platform for users to create meaningful connections, share life moments, and stay up-to-date with their friends and loved ones. Whether you're a seasoned social media user or just getting started, Linkle offers a user-friendly interface and a wide array of features to enhance your online social experience.
 
+<h2>Built with: </h2>
+<ul>
+    <li>React.js</li>
+    <li>Express.js</li>
+    <li>MongoDB / Mongoose</li>
+</ul>
+
 <h2>Key features</h2>
 
 <ul>
