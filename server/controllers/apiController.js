@@ -19,7 +19,7 @@ exports.getCurrentUser = async (req, res) => {
         populate: {
           path: 'author',
           model: 'User',
-          select: 'firstName lastName fullName avatarFileName friends',
+          select: 'firstName lastName fullName avatarUrl friends',
         },
       })
       .populate({
@@ -31,7 +31,7 @@ exports.getCurrentUser = async (req, res) => {
           populate: {
             path: 'author',
             model: 'User',
-            select: 'firstName lastName fullName avatarFileName friends',
+            select: 'firstName lastName fullName avatarUrl friends',
           },
         },
       })
@@ -40,7 +40,7 @@ exports.getCurrentUser = async (req, res) => {
         populate: {
           path: 'user',
           model: 'User',
-          select: 'fullName avatarFileName',
+          select: 'fullName avatarUrl',
         },
       })
       .exec();
@@ -81,7 +81,7 @@ exports.getUser = async (req, res) => {
         populate: {
           path: 'author',
           model: 'User',
-          select: 'firstName lastName fullName avatarFileName friends',
+          select: 'firstName lastName fullName avatarUrl friends',
         },
       })
       .populate({
@@ -93,7 +93,7 @@ exports.getUser = async (req, res) => {
           populate: {
             path: 'author',
             model: 'User',
-            select: 'firstName lastName fullName avatarFileName friends',
+            select: 'firstName lastName fullName avatarUrl friends',
           },
         },
       })
@@ -415,7 +415,7 @@ exports.getFeedPosts = async (req, res) => {
       .populate({
         path: 'author',
         model: 'User',
-        select: 'firstName lastName fullName avatarFileName friends',
+        select: 'firstName lastName fullName avatarUrl friends',
       })
       .populate({
         path: 'sharesPost',
@@ -424,7 +424,7 @@ exports.getFeedPosts = async (req, res) => {
         populate: {
           path: 'author',
           model: 'User',
-          select: 'fullName avatarFileName',
+          select: 'fullName avatarUrl',
         },
       })
       .populate({
@@ -438,7 +438,7 @@ exports.getFeedPosts = async (req, res) => {
         populate: {
           path: 'author',
           model: 'User',
-          select: 'fullName avatarFileName',
+          select: 'fullName avatarUrl',
         },
       })
       .populate({
@@ -475,7 +475,7 @@ exports.getPost = async (req, res) => {
       .populate({
         path: 'author',
         model: 'User',
-        select: 'firstName lastName fullName avatarFileName friends',
+        select: 'firstName lastName fullName avatarUrl friends',
       })
       .populate({
         path: 'sharesPost',
@@ -484,7 +484,7 @@ exports.getPost = async (req, res) => {
         populate: {
           path: 'author',
           model: 'User',
-          select: 'fullName avatarFileName',
+          select: 'fullName avatarUrl',
         },
       })
       .populate({
@@ -498,7 +498,7 @@ exports.getPost = async (req, res) => {
         populate: {
           path: 'author',
           model: 'User',
-          select: 'fullName avatarFileName',
+          select: 'fullName avatarUrl',
         },
       })
       .populate({
