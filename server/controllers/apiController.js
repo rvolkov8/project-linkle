@@ -420,7 +420,7 @@ exports.getFeedPosts = async (req, res) => {
       .populate({
         path: 'sharesPost',
         model: 'Post',
-        select: 'author body picture createdAt',
+        select: 'author body pictureUrl createdAt',
         populate: {
           path: 'author',
           model: 'User',
@@ -480,7 +480,7 @@ exports.getPost = async (req, res) => {
       .populate({
         path: 'sharesPost',
         model: 'Post',
-        select: 'author body picture createdAt',
+        select: 'author body pictureUrl createdAt',
         populate: {
           path: 'author',
           model: 'User',
