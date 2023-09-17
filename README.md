@@ -8,10 +8,23 @@ In today's digital age, social networking has become an integral part of our liv
 
 <h2>Built with: </h2>
 <ul>
-    <li>React.js</li>
-    <li>Express.js</li>
-    <li>MongoDB / Mongoose</li>
-</ul>
+    <li>
+      <strong>Frontend:</strong>
+      <ul>
+        <li>React.js: A popular JavaScript library for building user interfaces.</li>
+        <li>React Router: Used for navigation and routing within the web app.</li>
+      </ul>
+    </li>
+    <li>
+      <strong>Backend:</strong>
+      <ul>
+        <li>Node.js: A powerful JavaScript runtime that allows for server-side scripting, facilitating efficient and scalable web application development.</li>
+        <li>Express.js: A web application framework for Node.js.</li>
+        <li>MongoDB: A NoSQL database used to store game assets and leaderboard data.</li>
+        <li>Mongoose: An elegant MongoDB object modeling tool for Node.js.</li>
+      </ul>
+    </li>
+  </ul>
 
 <h2>Key features</h2>
 
