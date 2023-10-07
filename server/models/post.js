@@ -6,9 +6,9 @@ const postSchema = new Schema({
   body: { type: String },
   pictureUrl: { type: String, default: null },
   sharesPost: { type: Schema.Types.ObjectId, default: null },
-  comments: [{ type: Schema.Types.ObjectId, red: 'Comment' }],
-  likedBy: [{ type: Schema.Types.ObjectId, red: 'User' }],
-  sharedBy: [{ type: Schema.Types.ObjectId, red: 'User' }],
+  comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
+  likedBy: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+  sharedBy: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   createdAt: { type: Date, default: Date.now() },
 });
 
